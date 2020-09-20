@@ -6,6 +6,7 @@ public class UI : MonoBehaviour
 {
     public const Item NO_ITEM = null;
     public Item choosedItem = NO_ITEM;
+    int chooseItemIndex = 0;
 
     int barlength = 150;
 
@@ -22,8 +23,7 @@ public class UI : MonoBehaviour
     public InventoryInit item;
 
     bool isInventoryOpen = false;
-    int chooseItemIndex = 0;
-
+    int step = 36;
     private void Start()
     {
         stats = statInit.stats;
@@ -35,6 +35,13 @@ public class UI : MonoBehaviour
         {
             isInventoryOpen = !isInventoryOpen;
         }   
+        if (isInventoryOpen) 
+        {
+            if (item.inventory.Count > 0)
+            {
+                choosedItem = ItemChose();
+            }
+        }
     }
     private void OnGUI()
     {
@@ -49,9 +56,8 @@ public class UI : MonoBehaviour
 
         if (isInventoryOpen)
         {
+            //choosedItem = ItemChose();
             DrawItemsBar();
-
-            ItemChose();
 
             //test
         }
@@ -62,8 +68,6 @@ public class UI : MonoBehaviour
     }
     void DrawStatBar(StatsField statsField, int order)
     {
-        int step = 32;
-
         GUI.BeginGroup(new Rect(0, step * order, barlength, 32));
         GUI.Box(new Rect(0, 0, barlength, 32), progressBarEmpty);
         GUI.BeginGroup(new Rect(0, 0, statsField.value / 100 * barlength, 32));
@@ -76,50 +80,72 @@ public class UI : MonoBehaviour
 
     void DrawFightStatBar(int fightStats, int order, string statName) 
     {
-        int step = 32;
-
-        GUI.BeginGroup(new Rect(0, step * order, barlength, 32));
-        GUI.Box(new Rect(0, 0, barlength, 32), progressBarEmpty);
-        GUI.BeginGroup(new Rect(0, 0, fightStats / 1000 * barlength, 32));
-        GUI.Box(new Rect(0, 0, barlength, 32), progressBarFull);
+        GUI.BeginGroup(new Rect(0, step * order, barlength, step));
+        GUI.Box(new Rect(0, 0, barlength, step), progressBarEmpty);
+        GUI.BeginGroup(new Rect(0, 0, fightStats / 1000 * barlength, step));
+        GUI.Box(new Rect(0, 0, barlength, step), progressBarFull);
         GUI.EndGroup();
         GUI.EndGroup();
-        GUI.Label(new Rect(0, step * order, barlength, 32), statName + " " + fightStats);
+        GUI.Label(new Rect(0, step * order, barlength, step), statName + " " + fightStats);
     }
 
     void DrawExpBar(int order)
     {
-        int step = 32;
-
-        GUI.BeginGroup(new Rect(0, step * order, barlength, 32));
-        GUI.Box(new Rect(0, 0, barlength, 32), progressBarEmpty);
+        GUI.BeginGroup(new Rect(0, step * order, barlength, step));
+        GUI.Box(new Rect(0, 0, barlength, step), progressBarEmpty);
         float exp_progressBar = (((float)(exp.exp.Current_exp - exp.exp.lvllt[exp.exp.Lvl]) / exp.exp.lvllt[exp.exp.Lvl + 1]));
-        GUI.BeginGroup(new Rect(0, 0, exp_progressBar * barlength, 32));
-        GUI.Box(new Rect(0, 0, barlength, 32), progressBarFull);
+        GUI.BeginGroup(new Rect(0, 0, exp_progressBar * barlength, step));
+        GUI.Box(new Rect(0, 0, barlength, step), progressBarFull);
         GUI.EndGroup();
         GUI.EndGroup();
-        GUI.Label(new Rect(0, step * order, barlength, 32), "exp " + exp.exp.Current_exp.ToString() + " / " + exp.exp.lvllt[exp.exp.Lvl + 1].ToString() + " lvl " + exp.exp.Lvl);
+        GUI.Label(new Rect(0, step * order, barlength, step), "exp " + exp.exp.Current_exp.ToString() + " / " + exp.exp.lvllt[exp.exp.Lvl + 1].ToString() + " lvl " + exp.exp.Lvl);
     }
 
     void DrawItemsBar() 
     {
-        GUI.Label(new Rect(Screen.width - barlength / 2, 0, barlength, 32), "gold ");
+        GUI.Label(new Rect(Screen.width - barlength / 2, 0, barlength, step), "gold ");
 
         int idx = 1;
         foreach (InventoryCell item in item.inventory)
         {
-            GUI.Label(new Rect(Screen.width - barlength, idx * 20, barlength, 32), item.item.itemName + " " +  item.count);
+            GUI.Label(new Rect(Screen.width - barlength, idx * 20, barlength, step), item.item.itemName + (idx - 1 == chooseItemIndex ? "*" : " ") + " " +  item.count);
             idx++;
         }
     }
 
     private Item ItemChose() 
     {
-        if (Input.GetKeyDown(KeyCode.F1))
+        if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            choosedItem = item.inventory[0].item;
+            if (chooseItemIndex > 0) 
+            {
+                chooseItemIndex--;
+            }
+            else 
+            {
+                chooseItemIndex = item.inventory.Count - 1;
+            }
         }
-        //return chooseItemIndex;
-        return choosedItem;
+
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            if (chooseItemIndex < item.inventory.Count - 1)
+            {
+                chooseItemIndex++;
+            }
+            else
+            {
+                chooseItemIndex = 0;
+            }
+        }
+
+        Debug.Log(chooseItemIndex);
+
+        //TODO
+        if(chooseItemIndex == item.inventory.Count) 
+        {
+            chooseItemIndex = item.inventory.Count - 1;
+        }
+        return item.inventory[chooseItemIndex].item;
     }
 }

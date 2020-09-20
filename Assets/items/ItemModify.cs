@@ -9,7 +9,12 @@ public static class ItemModify
     //    inventory.Remove(item);
     //}
     public static void UseItem(Item item, Stats stats) 
-    { 
+    {
+        if (item == null) 
+        {
+            Debug.LogError("UseItem item == null");
+            return;
+        }
         //item.stats.duration
         if (item.stats.playerStats == PlayerStats.HUNGER) 
         {

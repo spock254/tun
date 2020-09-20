@@ -24,11 +24,6 @@ public class ItemInit : MonoBehaviour
             30f, 10f, 5), "coffe", 15));
         items.Add(new Item(new ItemStats(PlayerStats.HAPPINESS,
             30f, 7f, 7), "seed", 3));
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        items.Add(new Item(new ItemStats(PlayerStats.HAPPINESS, 15, 5, 5), "sig", 20));
     }
 }

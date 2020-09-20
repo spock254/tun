@@ -31,12 +31,31 @@ public class InventoryManager : MonoBehaviour
             RemoveFromList(ui.choosedItem.id);
             UpdateInventory();
         }
+
+        if (Input.GetKeyDown(KeyCode.Alpha0)) 
+        {
+            AddToList(new Item(new ItemStats(PlayerStats.HEALTH, 0, 0.3f, 5),
+                    "posion", 200));
+            UpdateInventory();
+        }
     }
 
-    private void RemoveFromList(int id) 
+    private void RemoveFromList(int id)
     {
         Item itemToRemove = item.items.FirstOrDefault(i => i.id == id);
+
+        if (itemToRemove == null) 
+        {
+            Debug.LogError("RemoveFromList itemToRemove == null");
+            return;
+        }
+
         item.items.Remove(itemToRemove);
+    }
+
+    private void AddToList(Item newItem) 
+    {
+            item.items.Add(newItem);
     }
     private void UpdateInventory()
     {
