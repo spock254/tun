@@ -46,6 +46,7 @@ public class UI : MonoBehaviour
         DrawExpBar(5);
         DrawFightStatBar(fightStats.fightStats.Attack, 6, "attack");
         DrawFightStatBar(fightStats.fightStats.Defence, 7, "defence");
+
         if (isInventoryOpen)
         {
             DrawItemsBar();
