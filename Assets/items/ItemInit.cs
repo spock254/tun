@@ -17,6 +17,9 @@ public class ItemInit : MonoBehaviour
         Item item_coffe = new Item(new ItemStats(PlayerStats.SLEEP,
             30f, 10f, 5), "coffe", 15);
 
+        items.Add(GlobalItems.GetCoffe());
+        items.Add(GlobalItems.GetCoffe());
+
         items.Add(item_apple1);
         items.Add(item_apple2);
         items.Add(item_coffe);

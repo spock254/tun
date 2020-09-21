@@ -25,59 +25,62 @@ public class InventoryManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F)) 
+        // !! shoud be in UI
+        if (Input.GetKeyDown(KeyCode.F) && ui.isInventoryOpen) 
         {
             ItemModify.UseItem(ui.choosedItem, stats.stats);
-            RemoveFromList(ui.choosedItem.id);
-            UpdateInventory();
+            InventoryModify.RemoveFromList(ui.choosedItem.id, item.items);
+            InventoryModify.UpdateInventory(inventory.inventory, item.items);
+            //UpdateInventory();
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha0)) 
         {
-            AddToList(new Item(new ItemStats(PlayerStats.HEALTH, 0, 0.3f, 5),
-                    "posion", 200));
-            UpdateInventory();
+            InventoryModify.AddToList(new Item(new ItemStats(PlayerStats.HEALTH, 0, 0.3f, 5),
+                    "posion", 200), item.items);
+            InventoryModify.UpdateInventory(inventory.inventory, item.items);
+            // UpdateInventory();
         }
     }
 
-    private void RemoveFromList(int id)
-    {
-        Item itemToRemove = item.items.FirstOrDefault(i => i.id == id);
+    //private void RemoveFromList(int id)
+    //{
+    //    Item itemToRemove = item.items.FirstOrDefault(i => i.id == id);
 
-        if (itemToRemove == null) 
-        {
-            Debug.LogError("RemoveFromList itemToRemove == null");
-            return;
-        }
+    //    if (itemToRemove == null) 
+    //    {
+    //        Debug.LogError("RemoveFromList itemToRemove == null");
+    //        return;
+    //    }
 
-        item.items.Remove(itemToRemove);
-    }
+    //    item.items.Remove(itemToRemove);
+    //}
 
     private void AddToList(Item newItem) 
     {
             item.items.Add(newItem);
     }
-    private void UpdateInventory()
-    {
-        inventory.inventory.Clear();
+    //private void UpdateInventory()
+    //{
+    //    inventory.inventory.Clear();
 
-        foreach (Item item in item.items)
-        {
-            bool skip = false;
-            foreach (var cell in inventory.inventory)
-            {
-                if (item.id == cell.item.id)
-                {
-                    cell.count++;
-                    skip = true;
-                    break;
-                }
-            }
-            if (!skip)
-            {
-                inventory.inventory.Add(new InventoryCell(item, 1));
+    //    foreach (Item item in item.items)
+    //    {
+    //        bool skip = false;
+    //        foreach (var cell in inventory.inventory)
+    //        {
+    //            if (item.id == cell.item.id)
+    //            {
+    //                cell.count++;
+    //                skip = true;
+    //                break;
+    //            }
+    //        }
+    //        if (!skip)
+    //        {
+    //            inventory.inventory.Add(new InventoryCell(item, 1));
 
-            }
-        }
-    }
+    //        }
+    //    }
+    //}
 }

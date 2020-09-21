@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public static class ItemModify
 {
@@ -8,6 +9,19 @@ public static class ItemModify
     //{
     //    inventory.Remove(item);
     //}
+
+    public static void UseShopItem(Item item, Gold gold) 
+    {
+        if (gold.GoldAmount >= item.itemPrice) 
+        {
+            Debug.Log("Buy");
+            gold.GoldAmount -= item.itemPrice;
+        }
+        else 
+        {
+            Debug.Log("Not enough gold");
+        }
+    }
     public static void UseItem(Item item, Stats stats) 
     {
         if (item == null) 
