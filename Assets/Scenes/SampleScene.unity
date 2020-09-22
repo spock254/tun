@@ -142,6 +142,7 @@ GameObject:
   - component: {fileID: 519420039}
   - component: {fileID: 519420040}
   - component: {fileID: 519420041}
+  - component: {fileID: 519420042}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -242,9 +243,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initHungerDur: 1
+  MaxHungerDur: 10
   initSleepDur: 2
+  MaxSleepDur: 40
   initHappinessDur: 3
+  MaxHappinessDur: 10
   initAgeDur: -10
+  MaxAgeDur: 5
 --- !u!114 &519420034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -358,6 +363,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a7729ee8063395458619ff572da7b44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &519420042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c6038484cca51f4ab393249b1ebac9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  exp: {fileID: 519420038}
+  fightStats: {fileID: 519420037}
 --- !u!1 &731370851
 GameObject:
   m_ObjectHideFlags: 0

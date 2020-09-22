@@ -97,12 +97,12 @@ public class UI : MonoBehaviour
     {
         GUI.BeginGroup(new Rect(0, step * order, barlength, 32));
         GUI.Box(new Rect(0, 0, barlength, 32), progressBarEmpty);
-        GUI.BeginGroup(new Rect(0, 0, statsField.value / 100 * barlength, 32));
+        GUI.BeginGroup(new Rect(0, 0, statsField.Value / 100 * barlength, 32));
         GUI.Box(new Rect(0, 0, barlength, 32), progressBarFull);
         GUI.EndGroup();
         GUI.EndGroup();
-        GUI.Label(new Rect(0, step * order, barlength, 32), statsField.name + "/" + ((int)statsField.value).ToString() + "/" + statsField.duration + " " 
-                                                            + statsField.tempDuration + "/" + statsField.buffTime);
+        GUI.Label(new Rect(0, step * order, barlength, 32), statsField.Name + "/" + ((int)statsField.Value).ToString() + "/" + statsField.Duration + " " 
+                                                            + statsField.TempDuration + "/" + statsField.BuffTime);
     }
 
     void DrawShopBar() 
@@ -116,7 +116,7 @@ public class UI : MonoBehaviour
             idx++;
         }
     }
-    void DrawFightStatBar(int fightStats, int order, string statName) 
+    void DrawFightStatBar(float fightStats, int order, string statName) 
     {
         GUI.BeginGroup(new Rect(0, step * order, barlength, step));
         GUI.Box(new Rect(0, 0, barlength, step), progressBarEmpty);

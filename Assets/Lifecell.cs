@@ -22,7 +22,7 @@ public class Lifecell : MonoBehaviour
     private void Start()
     {
         stats = statInit.stats;
-        baseHealthDuration = stats.Health.duration;
+        baseHealthDuration = stats.Health.Duration;
 
         if (lvlUp == null) 
         {
@@ -55,14 +55,14 @@ public class Lifecell : MonoBehaviour
 
         LvlCalculation();
 
-        if ((stats.Hunger.isEmpty || stats.Sleep.isEmpty || stats.Happiness.isEmpty) && !isGettingDamage)
+        if ((stats.Hunger.IsEmpty || stats.Sleep.IsEmpty || stats.Happiness.IsEmpty) && !isGettingDamage)
         {
-            stats.Health.duration = Stats.healthDuration;
+            stats.Health.Duration = Stats.healthDuration;
             isGettingDamage = true;
         }
-        else if (!stats.Hunger.isEmpty && !stats.Sleep.isEmpty && !stats.Happiness.isEmpty)
+        else if (!stats.Hunger.IsEmpty && !stats.Sleep.IsEmpty && !stats.Happiness.IsEmpty)
         {
-            stats.Health.duration = float.MaxValue;
+            stats.Health.Duration = float.MaxValue;
             isGettingDamage = false;
         }
 
@@ -99,19 +99,19 @@ public class Lifecell : MonoBehaviour
     public void timeModify(StatsField statsField)
     {
        // float oldDuration = statsField.duration;
-        if (statsField.value < 0) 
+        if (statsField.Value < 0) 
         {
-            statsField.value = 0;
+            statsField.Value = 0;
         }
 
-        if (statsField.buffTime > 0)
+        if (statsField.BuffTime > 0)
         {
-            statsField.value -= Time.deltaTime / statsField.tempDuration;
-            statsField.buffTime -= Time.deltaTime;
+            statsField.Value -= Time.deltaTime / statsField.TempDuration;
+            statsField.BuffTime -= Time.deltaTime;
             return;
         }
 
-        statsField.value -= Time.deltaTime / statsField.duration;
+        statsField.Value -= Time.deltaTime / statsField.Duration;
     }
 
     private void FightStatsModify() 
@@ -129,8 +129,8 @@ public class Lifecell : MonoBehaviour
 
     private bool isAlife(StatInit stat) 
     {
-        return stat.stats.Age.value < stat.stats.Age.MAX_VALUE
-            && stat.stats.Health.value > 0;
+        return stat.stats.Age.Value < stat.stats.Age.MAX_VALUE
+            && stat.stats.Health.Value > 0;
     }
 
     private void Dead() 

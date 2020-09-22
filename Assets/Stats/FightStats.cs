@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class FightStats
 {
-    private int attack;
-    private int defence;
+    private float attack;
+    private float defence;
 
     public int[] attackCofWithLvl;
     public int[] defenceCofWithLvl;
@@ -18,8 +18,8 @@ public class FightStats
         defenceCofWithLvl = FillCof();
     }
 
-    public int Attack { get => attack; set => attack = value; }
-    public int Defence { get => defence; set => defence = value; }
+    public float Attack { get => attack; set => attack = value; }
+    public float Defence { get => defence; set => defence = value; }
 
     private int[] FillCof() 
     {

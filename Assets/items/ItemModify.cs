@@ -32,27 +32,63 @@ public static class ItemModify
         //item.stats.duration
         if (item.stats.playerStats == PlayerStats.HUNGER) 
         {
-            stats.Hunger.value += item.stats.value;
-            stats.Hunger.tempDuration += item.stats.duration;
-            stats.Hunger.buffTime = item.stats.time;
+            stats.Hunger.Value += item.stats.value;
+            
+            if (stats.Hunger.TempDuration + item.stats.duration > stats.Hunger.MAX_TEMP_DURATION) 
+            {
+                stats.Hunger.TempDuration = stats.Hunger.MAX_TEMP_DURATION;
+            }
+            else 
+            { 
+                stats.Hunger.TempDuration += item.stats.duration;
+            }
+
+            stats.Hunger.BuffTime = item.stats.time;
         }
         else if (item.stats.playerStats == PlayerStats.SLEEP)
         {
-            stats.Sleep.value += item.stats.value;
-            stats.Sleep.tempDuration += item.stats.duration;
-            stats.Sleep.buffTime = item.stats.time;
+            stats.Sleep.Value += item.stats.value;
+            
+            if (stats.Sleep.TempDuration + item.stats.duration > stats.Sleep.MAX_TEMP_DURATION)
+            {
+                stats.Sleep.TempDuration = stats.Sleep.MAX_TEMP_DURATION;
+            }
+            else
+            {
+                stats.Sleep.TempDuration += item.stats.duration;
+            }
+
+            stats.Sleep.BuffTime = item.stats.time;
         }
         else if (item.stats.playerStats == PlayerStats.HAPPINESS)
         {
-            stats.Happiness.value += item.stats.value;
-            stats.Happiness.tempDuration += item.stats.duration;
-            stats.Happiness.buffTime = item.stats.time;
+            stats.Happiness.Value += item.stats.value;
+
+            if (stats.Happiness.TempDuration + item.stats.duration > stats.Happiness.MAX_TEMP_DURATION)
+            {
+                stats.Happiness.TempDuration = stats.Happiness.MAX_TEMP_DURATION;
+            }
+            else
+            {
+                stats.Happiness.TempDuration += item.stats.duration;
+            }
+
+            stats.Happiness.BuffTime = item.stats.time;
         }
         else if (item.stats.playerStats == PlayerStats.HEALTH)
         {
-            stats.Health.value += item.stats.value;
-            stats.Health.tempDuration += item.stats.duration;
-            stats.Health.buffTime = item.stats.time;
+            stats.Health.Value += item.stats.value;
+
+            if (stats.Health.TempDuration + item.stats.duration > stats.Health.MAX_TEMP_DURATION)
+            {
+                stats.Health.TempDuration = stats.Health.MAX_TEMP_DURATION;
+            }
+            else
+            {
+                stats.Health.TempDuration += item.stats.duration;
+            }
+
+            stats.Health.BuffTime = item.stats.time;
         }
 
     }
