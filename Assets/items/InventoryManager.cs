@@ -43,18 +43,10 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    //private void RemoveFromList(int id)
-    //{
-    //    Item itemToRemove = item.items.FirstOrDefault(i => i.id == id);
-
-    //    if (itemToRemove == null) 
-    //    {
-    //        Debug.LogError("RemoveFromList itemToRemove == null");
-    //        return;
-    //    }
-
-    //    item.items.Remove(itemToRemove);
-    //}
+    public void OpenInventoryUI() 
+    {
+        ui.isInventoryOpen = !ui.isInventoryOpen;
+    }
 
     private void AddToList(Item newItem) 
     {

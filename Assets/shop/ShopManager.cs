@@ -48,4 +48,9 @@ public class ShopManager : MonoBehaviour
             //UpdateInventory();
         }
     }
+
+    public void OpenShopUI() 
+    {
+        ui.isShopOpen = !ui.isShopOpen;
+    }
 }

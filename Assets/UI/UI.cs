@@ -177,8 +177,6 @@ public class UI : MonoBehaviour
             }
         }
 
-        Debug.Log(chooseItemIndex);
-
         //TODO
         if(chooseItemIndex == item.inventory.Count) 
         {
