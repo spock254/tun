@@ -52,6 +52,8 @@ public class UIContrall : MonoBehaviour //, IPointerClickHandler
         //head_sprite = head_btn.GetComponent<Image>();
         //head_sprite.sprite = itemDB.items[0].itemSprite;
         left_hand_btn.GetComponent<ItemCell>().item = itemDB.items[0];
+        left_hand_btn.GetComponent<Image>().sprite = itemDB.items[0].itemSprite;
+        //    left_hand_btn.GetComponent<ItemCell>().empty_cell_sprite;
     }
 
     // Update is called once per frame
@@ -80,10 +82,7 @@ public class UIContrall : MonoBehaviour //, IPointerClickHandler
                         Item item = left_hand_btn.GetComponent<ItemCell>().item;
                         item.itemUseData.use.Use_On_Player();
                     }
-                
-
                 }
-                //hit.collider.attachedRigidbody.AddForce(Vector2.up);
             }
         }
     }
@@ -105,10 +104,15 @@ public class UIContrall : MonoBehaviour //, IPointerClickHandler
             {
                 if (itemType == item_types.ToString()) 
                 {
-                    Debug.Log("qwe");
-                    this.gameObject.GetComponent<ItemCell>().item = item;
-                    currentHand.GetComponent<ItemCell>().item = null;
+                    GameObject cell = GameObject.FindGameObjectWithTag(item_types.ToString().ToLower() + "_cell");
+                    cell.GetComponent<ItemCell>().item = item;
+                    cell.GetComponent<Image>().sprite = item.itemSprite;
+                    
 
+                    currentHand.GetComponent<ItemCell>().item = null;
+                    currentHand.GetComponent<Image>().sprite =
+                        currentHand.GetComponent<ItemCell>().empty_cell_sprite;
+                    return;
                 }
 
             }
