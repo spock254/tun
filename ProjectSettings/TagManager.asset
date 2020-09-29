@@ -3,7 +3,19 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - head_cell
+  - face_cell
+  - body_cell
+  - arm_cell
+  - lags_cell
+  - bag_cell
+  - leftHand_cell
+  - rightHand_cell
+  - packet_left
+  - packet_right
+  - card
+  - player
   layers:
   - Default
   - TransparentFX

@@ -18,26 +18,44 @@ public static class InventoryModify
     }
     public static void CreateInvBaseOnItemList(ref List<InventoryCell> inventory, List<Item> items) 
     {
-        inventory = new List<InventoryCell>();
+        //inventory = new List<InventoryCell>();
 
-        foreach (Item item in items)
-        {
-            bool skip = false;
-            foreach (var cell in inventory)
-            {
-                if (item.id == cell.item.id)
-                {
-                    cell.count++;
-                    skip = true;
-                    break;
-                }
-            }
-            if (!skip)
-            {
-                inventory.Add(new InventoryCell(item, 1));
+        //if (items == null) 
+        //{
+        //    Debug.LogWarning("items == null");
+        //    return;
+        //}
 
-            }
-        }
+        //if (items.Count == 0)
+        //{
+        //    return;
+        //}
+
+        //if (inventory == null) 
+        //{
+        //    Debug.LogWarning("inventory == null");
+        //    return;
+        //}
+
+
+        //foreach (Item item in items)
+        //{
+        //    bool skip = false;
+        //    foreach (var cell in inventory)
+        //    {
+        //        if (item.id == cell.item.id)
+        //        {
+        //            cell.count++;
+        //            skip = true;
+        //            break;
+        //        }
+        //    }
+        //    if (!skip)
+        //    {
+        //        inventory.Add(new InventoryCell(item, 1));
+
+        //    }
+        //}
     }
 
     public static void UpdateInventory(List<InventoryCell> inventory, List<Item> items)

@@ -31,15 +31,13 @@ public class InventoryManager : MonoBehaviour
             ItemModify.UseItem(ui.choosedItem, stats.stats);
             InventoryModify.RemoveFromList(ui.choosedItem.id, item.items);
             InventoryModify.UpdateInventory(inventory.inventory, item.items);
-            //UpdateInventory();
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha0)) 
         {
-            InventoryModify.AddToList(new Item(new ItemStats(PlayerStats.HEALTH, 0, 0.3f, 5),
-                    "posion", 200), item.items);
-            InventoryModify.UpdateInventory(inventory.inventory, item.items);
-            // UpdateInventory();
+            //InventoryModify.AddToList(new Item(new ItemStats(PlayerStats.HEALTH, 0, 0.3f, 5),
+            //        "posion", 200), item.items);
+            //InventoryModify.UpdateInventory(inventory.inventory, item.items);
         }
     }
 

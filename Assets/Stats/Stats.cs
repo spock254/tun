@@ -9,6 +9,7 @@ public enum PlayerStats
     HUNGER,
     SLEEP,
     HAPPINESS,
+    NONE
 }
 
 public class Stats
