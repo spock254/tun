@@ -16,6 +16,12 @@ TagManager:
   - packet_right
   - card
   - player
+  - packet_left_cell
+  - packet_right_cell
+  - card_cell
+  - right_hand_cell
+  - left_hand_cell
+  - drop
   layers:
   - Default
   - TransparentFX

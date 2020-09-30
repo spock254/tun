@@ -6,7 +6,7 @@ public class ItemUseData
 {
     public enum ItemSize { Small, Middle, Big }
     public enum ItemType { Head, Face, Body, Arm, Lags, Bag, Card, 
-                           Unwearable, Untakable, Dragable, NONE }
+                           Unwearable, Untakable, Dragable, HandUsable, NONE }
 
     public ItemSize itemSize;
     public IUse use;

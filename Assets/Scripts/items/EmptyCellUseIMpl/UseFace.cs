@@ -4,9 +4,21 @@ using UnityEngine;
 
 public class UseFace : IUse
 {
+    public void Use_In_Hands()
+    {
+        Debug.Log("Use_In_Hands");
+    }
+    public void Use_When_Ware()
+    {
+        Debug.Log("Use_When_Ware");
+    }
     public void Use_DressedUp()
     {
         Debug.Log("Use_DressedUp with out eq");
+    }
+    public void Use_To_TakeOff()
+    {
+        Debug.Log("Use_To_TakeOff");
     }
 
     public void Use_On_Player()

@@ -76,7 +76,6 @@ public class UIContrall : MonoBehaviour //, IPointerClickHandler
             RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
             if (hit.collider != null)
             {
-                //Debug.Log(hit.collider.gameObject.tag);
                 if (hit.collider.gameObject.tag == "player") 
                 { 
                     if (currentHand.GetComponent<ItemCell>() != null)
@@ -98,36 +97,66 @@ public class UIContrall : MonoBehaviour //, IPointerClickHandler
 
     public void OnInvButtonClick(string itemType) 
     { 
-        GameObject cell = GameObject.FindGameObjectWithTag(itemType.ToString()
+        GameObject cellGo = GameObject.FindGameObjectWithTag(itemType.ToString()
                                     .ToLower() + "_cell");
+        Button cell = cellGo.GetComponent<Button>();
 
-        Debug.Log(currentHand.GetComponent<ItemCell>().item);
-        Debug.Log(itemDB.deffaultItems[currentHand.name.ToLower()]);
-        if (currentHand.GetComponent<ItemCell>().item != itemDB.deffaultItems[currentHand.name.ToLower()])
+        if (!IsEmpty(currentHand)) //если в руке что то есть
         {
-            Item item = currentHand.GetComponent<ItemCell>().item;
+            Item itemInHand = currentHand.GetComponent<ItemCell>().item;
 
-            foreach (var item_types in item.itemUseData.itemTypes)
-            {
-                if (itemType == item_types.ToString())
+            if (IsEmpty(cell))  //если не чего не надето
+            { 
+
+                foreach (var item_types in itemInHand.itemUseData.itemTypes)
                 {
-                    // 1 func
-                    cell.GetComponent<ItemCell>().item = item;
-                    cell.GetComponent<Image>().sprite = item.itemSprite;
-
-                    SetDefaultItem(currentHand);
-
-                    item.itemUseData.use.Use_To_Ware();
-                    return;
+                    if (itemType == item_types.ToString())
+                    {
+                        DressOrTakeOff(cell, currentHand, itemInHand, true);
+                        return;
+                    }
                 }
-
+            }
+            else //если одето 
+            { 
+            
             }
         }
-        else 
+        else //если в руках не чего нет
         {
-            Debug.Log("EMPTY");
+            Item itemInCell = cell.GetComponent<ItemCell>().item;
+
+            if (cell == GetAnotherHand()) // если взаимодействуем со второй рукой
+            {
+                if (!IsEmpty(GetAnotherHand())) // если вторая рука занята
+                {
+                    foreach (var item_type in itemInCell.itemUseData.itemTypes)
+                    {
+                        if (item_type == ItemUseData.ItemType.HandUsable)
+                        {
+                            itemInCell.itemUseData.use.Use_In_Hands();
+                            return;
+                        }
+                    }
+                }
+                else // если вторая рука пустая
+                {
+
+                }
+                return;
+            }
+
+            if (!IsEmpty(cell)) //если одето
+            {
+                DressOrTakeOff(currentHand, cell, itemInCell, false);
+            }
+            else 
+            {
+                itemInCell.itemUseData.use.Use_When_Ware();
+            }
         }
     }
+
     //когда не чего не надето
     void SetDefaultItem(Button cell) 
     {
@@ -149,5 +178,35 @@ public class UIContrall : MonoBehaviour //, IPointerClickHandler
         left_pack_btn.GetComponent<ItemCell>().item = itemDB.deffaultItems["packet_left"];
         right_pack_btn.GetComponent<ItemCell>().item = itemDB.deffaultItems["packet_right"];
         card_btn.GetComponent<ItemCell>().item = itemDB.deffaultItems["card"];
+    }
+
+    void DressOrTakeOff(Button dressOn, Button takeOff, Item item, bool isDressing) 
+    {
+        dressOn.GetComponent<ItemCell>().item = item;
+        dressOn.GetComponent<Image>().sprite = item.itemSprite;
+
+        SetDefaultItem(takeOff);
+
+        if (isDressing)
+        {
+            item.itemUseData.use.Use_To_Ware();
+        }
+        else 
+        {
+            item.itemUseData.use.Use_To_TakeOff();
+        }
+    }
+    bool IsEmpty(Button button) 
+    {
+        return button.GetComponent<ItemCell>().item == itemDB.deffaultItems[button.name.ToLower()];
+    }
+    Button GetAnotherHand() 
+    {
+        if (currentHand == left_hand_btn) 
+        {
+            return right_hand_btn;
+        }
+
+        return left_hand_btn;
     }
 }
