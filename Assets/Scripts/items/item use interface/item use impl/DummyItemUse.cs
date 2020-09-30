@@ -34,4 +34,8 @@ public class DummyItemUse : IUse
     {
         Debug.Log("Use_In_Hands");
     }
+    public void Use_To_Drop(Transform playrtPosition, Item item)
+    {
+        Debug.Log("Use_To_Drop");
+    }
 }

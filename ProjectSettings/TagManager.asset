@@ -22,6 +22,7 @@ TagManager:
   - right_hand_cell
   - left_hand_cell
   - drop
+  - ui
   layers:
   - Default
   - TransparentFX

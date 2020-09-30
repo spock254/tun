@@ -1,18 +1,34 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ActionPanelController : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public Transform player;
+
+    //Button currrentHand;
+    UIContrall uiContrall;
     void Start()
     {
-        
+        uiContrall = GameObject.FindGameObjectWithTag("ui")
+                        .GetComponent<UIContrall>();
+        //currrentHand = uiContrall.currentHand;
     }
 
-    // Update is called once per frame
-    void Update()
+
+    public void OnDropClick() 
     {
-        
+        if (!uiContrall.IsEmpty(uiContrall.currentHand))
+        {
+            uiContrall.currentHand.GetComponent<ItemCell>().item.itemUseData
+                                  .use.Use_To_Drop(player, 
+                                  uiContrall.currentHand
+                                  .GetComponent<ItemCell>().item);
+        }
+        else 
+        {
+            Debug.Log("nothing");
+        }
     }
 }

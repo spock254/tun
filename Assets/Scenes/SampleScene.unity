@@ -1600,7 +1600,7 @@ GameObject:
   - component: {fileID: 452357251}
   m_Layer: 0
   m_Name: drop
-  m_TagString: Untagged
+  m_TagString: drop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1667,7 +1667,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 452357252}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1106411687}
+        m_MethodName: OnDropClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &452357252
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3813,7 +3824,7 @@ GameObject:
   - component: {fileID: 1106411687}
   m_Layer: 0
   m_Name: UI
-  m_TagString: Untagged
+  m_TagString: ui
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3923,6 +3934,7 @@ MonoBehaviour:
   right_pack_btn: {fileID: 774263937}
   card_btn: {fileID: 1396327013}
   bag_panel: {fileID: 96867979}
+  currentHand: {fileID: 0}
 --- !u!114 &1106411687
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3935,6 +3947,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d28591426d2c6b240b1b2e3779a5e8b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 43560103}
 --- !u!1 &1170870167
 GameObject:
   m_ObjectHideFlags: 0

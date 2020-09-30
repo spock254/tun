@@ -10,6 +10,7 @@ public interface IUse
     void Use_To_Ware();
     void Use_To_TakeOff();
     void Use_To_Open();
+    void Use_To_Drop(Transform playrtPosition, Item item);
     // когда айтем уже одет на играока использование пустой рукой
     void Use_DressedUp();
 }

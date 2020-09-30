@@ -44,7 +44,7 @@ public class UIContrall : MonoBehaviour //, IPointerClickHandler
     public GameObject bag_panel;
 
     bool isLeftHand = true;
-    Button currentHand;
+    public Button currentHand;
 
     void Start()
     {
@@ -196,7 +196,7 @@ public class UIContrall : MonoBehaviour //, IPointerClickHandler
             item.itemUseData.use.Use_To_TakeOff();
         }
     }
-    bool IsEmpty(Button button) 
+    public bool IsEmpty(Button button) 
     {
         return button.GetComponent<ItemCell>().item == itemDB.deffaultItems[button.name.ToLower()];
     }

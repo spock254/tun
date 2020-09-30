@@ -34,4 +34,9 @@ public class UseLeftHand : IUse
     {
         throw new System.NotImplementedException();
     }
+
+    public void Use_To_Drop(Transform playrtPosition, Item item)
+    {
+        Debug.Log("Use_To_Drop");
+    }
 }
