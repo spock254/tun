@@ -36,6 +36,14 @@ public class Item
         this.itemSprite = itemSprite;
     }
 
+    // кстр для пустых ячеек инв
+    public Item(string itemName, ItemUseData itemUseData, Sprite sprite) 
+    {
+        this.itemName = itemName;
+        this.itemUseData = itemUseData;
+        this.itemSprite = sprite;
+    }
+
     private int GenerateId(string name, ItemStats stats) 
     {
 

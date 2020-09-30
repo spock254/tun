@@ -6,7 +6,7 @@ public class ItemUseData
 {
     public enum ItemSize { Small, Middle, Big }
     public enum ItemType { Head, Face, Body, Arm, Lags, Bag, Card, 
-                           Unwearable, Untakable, Dragable }
+                           Unwearable, Untakable, Dragable, NONE }
 
     public ItemSize itemSize;
     public IUse use;
@@ -17,5 +17,11 @@ public class ItemUseData
         this.itemSize = itemSize;
         this.use = use;
         this.itemTypes = itemTypes;
+    }
+
+    public ItemUseData(IUse use) 
+    {
+        this.use = use;
+        this.itemTypes = new ItemType[] { ItemType.NONE };
     }
 }

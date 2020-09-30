@@ -1067,7 +1067,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 221e48c46ec8e3e44a54325b3728581a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  empty_cell_sprite: {fileID: 0}
 --- !u!1 &203244888
 GameObject:
   m_ObjectHideFlags: 0
@@ -1526,7 +1525,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 412207807}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1106411686}
+        m_MethodName: OnInvButtonClick
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: arm
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &412207807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1576,7 +1586,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 221e48c46ec8e3e44a54325b3728581a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  empty_cell_sprite: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!1 &507266834
 GameObject:
   m_ObjectHideFlags: 0
@@ -1821,6 +1830,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52c250b31cfd6d542abf780b7a9b6075, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  head: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+  face: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+  body: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+  arm: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+  lags: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+  bag: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+  left_hand: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+  right_hand: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+  left_pack: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+  right_pack: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+  card: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
   sprite_helmet: {fileID: 338616210289973951, guid: ef7bad5a2b12a8649b3575fe584ad27d,
     type: 3}
 --- !u!114 &519420036
@@ -2131,7 +2151,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 221e48c46ec8e3e44a54325b3728581a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  empty_cell_sprite: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!1 &565827940
 GameObject:
   m_ObjectHideFlags: 0
@@ -2264,7 +2283,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 221e48c46ec8e3e44a54325b3728581a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  empty_cell_sprite: {fileID: 0}
 --- !u!1 &599012349
 GameObject:
   m_ObjectHideFlags: 0
@@ -2279,7 +2297,7 @@ GameObject:
   - component: {fileID: 599012351}
   - component: {fileID: 599012354}
   m_Layer: 0
-  m_Name: leftHand
+  m_Name: left_hand
   m_TagString: leftHand_cell
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2347,7 +2365,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 599012352}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1106411686}
+        m_MethodName: OnInvButtonClick
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: left_hand
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &599012352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2397,7 +2426,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 221e48c46ec8e3e44a54325b3728581a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  empty_cell_sprite: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!1 &677995832
 GameObject:
   m_ObjectHideFlags: 0
@@ -2879,7 +2907,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 774263938}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1106411686}
+        m_MethodName: OnInvButtonClick
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: packet_right
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &774263938
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2929,7 +2968,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 221e48c46ec8e3e44a54325b3728581a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  empty_cell_sprite: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!1 &914411051
 GameObject:
   m_ObjectHideFlags: 0
@@ -2944,7 +2982,7 @@ GameObject:
   - component: {fileID: 914411053}
   - component: {fileID: 914411056}
   m_Layer: 0
-  m_Name: rightHand
+  m_Name: right_hand
   m_TagString: rightHand_cell
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3012,7 +3050,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 914411054}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1106411686}
+        m_MethodName: OnInvButtonClick
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: right_hand
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &914411054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3062,7 +3111,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 221e48c46ec8e3e44a54325b3728581a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  empty_cell_sprite: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!1 &953915542
 GameObject:
   m_ObjectHideFlags: 0
@@ -3222,7 +3270,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 986943721}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1106411686}
+        m_MethodName: OnInvButtonClick
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: bag
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &986943721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3272,7 +3331,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 221e48c46ec8e3e44a54325b3728581a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  empty_cell_sprite: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!1 &1007658385
 GameObject:
   m_ObjectHideFlags: 0
@@ -3496,7 +3554,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1097110348}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1106411686}
+        m_MethodName: OnInvButtonClick
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: face
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1097110348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3546,7 +3615,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 221e48c46ec8e3e44a54325b3728581a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  empty_cell_sprite: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!1 &1106411681
 GameObject:
   m_ObjectHideFlags: 0
@@ -3754,7 +3822,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1170870170}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1106411686}
+        m_MethodName: OnInvButtonClick
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: body
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1170870170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3804,7 +3883,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 221e48c46ec8e3e44a54325b3728581a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  empty_cell_sprite: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!1 &1268644806
 GameObject:
   m_ObjectHideFlags: 0
@@ -4251,7 +4329,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1396327014}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1106411686}
+        m_MethodName: OnInvButtonClick
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: card
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1396327014
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4301,7 +4390,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 221e48c46ec8e3e44a54325b3728581a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  empty_cell_sprite: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!1 &1410718951
 GameObject:
   m_ObjectHideFlags: 0
@@ -4434,7 +4522,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 221e48c46ec8e3e44a54325b3728581a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  empty_cell_sprite: {fileID: 0}
 --- !u!1 &1423180916
 GameObject:
   m_ObjectHideFlags: 0
@@ -4645,7 +4732,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 221e48c46ec8e3e44a54325b3728581a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  empty_cell_sprite: {fileID: 0}
 --- !u!1 &1516174319
 GameObject:
   m_ObjectHideFlags: 0
@@ -4728,7 +4814,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1516174322}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1106411686}
+        m_MethodName: OnInvButtonClick
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: packet_left
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1516174322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4778,7 +4875,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 221e48c46ec8e3e44a54325b3728581a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  empty_cell_sprite: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!1 &1524068962
 GameObject:
   m_ObjectHideFlags: 0
@@ -5547,7 +5643,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1813933062}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1106411686}
+        m_MethodName: OnInvButtonClick
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: lags
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1813933062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5597,7 +5704,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 221e48c46ec8e3e44a54325b3728581a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  empty_cell_sprite: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!1 &1851642136
 GameObject:
   m_ObjectHideFlags: 0
@@ -5886,7 +5992,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 221e48c46ec8e3e44a54325b3728581a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  empty_cell_sprite: {fileID: 0}
 --- !u!1 &1903574701
 GameObject:
   m_ObjectHideFlags: 0

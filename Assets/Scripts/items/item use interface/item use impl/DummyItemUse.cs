@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DummyItemUse : IUse
 {
+
     public void Use_On_Player()
     {
         Debug.Log("Use_On_Player");
@@ -17,5 +18,9 @@ public class DummyItemUse : IUse
     public void Use_To_Ware()
     {
         Debug.Log("Use_To_Ware");
+    }
+    public void Use_DressedUp()
+    {
+        Debug.Log("Use_DressedUp");
     }
 }

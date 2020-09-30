@@ -5,5 +5,5 @@ using UnityEngine;
 public class ItemCell : MonoBehaviour
 {
     public Item item;
-    public Sprite empty_cell_sprite;
+    //public Sprite empty_cell_sprite;
 }

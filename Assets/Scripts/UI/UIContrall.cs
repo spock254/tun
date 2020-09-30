@@ -48,6 +48,8 @@ public class UIContrall : MonoBehaviour //, IPointerClickHandler
 
     void Start()
     {
+        InitCells();
+
         currentHand = left_hand_btn;
         //head_sprite = head_btn.GetComponent<Image>();
         //head_sprite.sprite = itemDB.items[0].itemSprite;
@@ -60,7 +62,7 @@ public class UIContrall : MonoBehaviour //, IPointerClickHandler
     void Update()
     {
 
-        if (Input.mouseScrollDelta.y > 0) 
+        if (Input.mouseScrollDelta.y != 0) 
         {
             currentHand = SwapActiveHand();
             currentHand.GetComponentInChildren<Text>().text = "*";
@@ -79,7 +81,7 @@ public class UIContrall : MonoBehaviour //, IPointerClickHandler
                 { 
                     if (currentHand.GetComponent<ItemCell>() != null)
                     {
-                        Item item = left_hand_btn.GetComponent<ItemCell>().item;
+                        Item item = currentHand.GetComponent<ItemCell>().item;
                         item.itemUseData.use.Use_On_Player();
                     }
                 }
@@ -96,27 +98,56 @@ public class UIContrall : MonoBehaviour //, IPointerClickHandler
 
     public void OnInvButtonClick(string itemType) 
     { 
-        if (currentHand.GetComponent<ItemCell>().item != null) 
+        GameObject cell = GameObject.FindGameObjectWithTag(itemType.ToString()
+                                    .ToLower() + "_cell");
+
+        Debug.Log(currentHand.GetComponent<ItemCell>().item);
+        Debug.Log(itemDB.deffaultItems[currentHand.name.ToLower()]);
+        if (currentHand.GetComponent<ItemCell>().item != itemDB.deffaultItems[currentHand.name.ToLower()])
         {
             Item item = currentHand.GetComponent<ItemCell>().item;
 
             foreach (var item_types in item.itemUseData.itemTypes)
             {
-                if (itemType == item_types.ToString()) 
+                if (itemType == item_types.ToString())
                 {
-                    GameObject cell = GameObject.FindGameObjectWithTag(item_types.ToString().ToLower() + "_cell");
+                    // 1 func
                     cell.GetComponent<ItemCell>().item = item;
                     cell.GetComponent<Image>().sprite = item.itemSprite;
-                    
 
-                    currentHand.GetComponent<ItemCell>().item = null;
-                    currentHand.GetComponent<Image>().sprite =
-                        currentHand.GetComponent<ItemCell>().empty_cell_sprite;
+                    SetDefaultItem(currentHand);
+
+                    item.itemUseData.use.Use_To_Ware();
                     return;
                 }
 
             }
-        
         }
+        else 
+        {
+            Debug.Log("EMPTY");
+        }
+    }
+    //когда не чего не надето
+    void SetDefaultItem(Button cell) 
+    {
+        Item deffaultItem = itemDB.deffaultItems[cell.name.ToLower()];
+        cell.GetComponent<ItemCell>().item = deffaultItem;
+        cell.GetComponent<Image>().sprite = deffaultItem.itemSprite;
+    }
+
+    void InitCells() 
+    {
+        head_btn.GetComponent<ItemCell>().item = itemDB.deffaultItems["head"];
+        face_btn.GetComponent<ItemCell>().item = itemDB.deffaultItems["face"];
+        body_btn.GetComponent<ItemCell>().item = itemDB.deffaultItems["body"];
+        lags_btn.GetComponent<ItemCell>().item = itemDB.deffaultItems["lags"];
+        arm_btn.GetComponent<ItemCell>().item = itemDB.deffaultItems["arm"];
+        bag_btn.GetComponent<ItemCell>().item = itemDB.deffaultItems["bag"];
+        left_hand_btn.GetComponent<ItemCell>().item = itemDB.deffaultItems["left_hand"];
+        right_hand_btn.GetComponent<ItemCell>().item = itemDB.deffaultItems["right_hand"];
+        left_pack_btn.GetComponent<ItemCell>().item = itemDB.deffaultItems["packet_left"];
+        right_pack_btn.GetComponent<ItemCell>().item = itemDB.deffaultItems["packet_right"];
+        card_btn.GetComponent<ItemCell>().item = itemDB.deffaultItems["card"];
     }
 }
