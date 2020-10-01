@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[System.Serializable]
 public class ItemUseData
 {
     public enum ItemSize { Small, Middle, Big }
@@ -9,7 +9,9 @@ public class ItemUseData
                            Unwearable, Untakable, Dragable, HandUsable, NONE }
 
     public ItemSize itemSize;
+    [SerializeReference]
     public IUse use;
+    [SerializeReference]
     public ItemType[] itemTypes;
 
     public ItemUseData(ItemSize itemSize, IUse use, ItemType[] itemTypes)

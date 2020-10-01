@@ -23,7 +23,7 @@ public class UseRightHand : IUse
 
     public void Use_On_Player()
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Use_On_Player");
     }
 
     public void Use_To_Open()
@@ -36,7 +36,7 @@ public class UseRightHand : IUse
     {
         throw new System.NotImplementedException();
     }
-    public void Use_To_Drop(Transform playrtPosition, Item item)
+    public void Use_To_Drop(Transform prefab, Transform position, Item item)
     {
         Debug.Log("Use_To_Drop");
     }

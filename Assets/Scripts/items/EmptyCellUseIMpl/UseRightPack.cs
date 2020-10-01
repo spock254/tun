@@ -34,7 +34,7 @@ public class UseRightPack : IUse
     {
         throw new System.NotImplementedException();
     }
-    public void Use_To_Drop(Transform playrtPosition, Item item)
+    public void Use_To_Drop(Transform prefab, Transform position, Item item)
     {
         Debug.Log("Use_To_Drop");
     }

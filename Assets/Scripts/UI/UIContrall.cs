@@ -72,17 +72,28 @@ public class UIContrall : MonoBehaviour //, IPointerClickHandler
         {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
-
             RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
             if (hit.collider != null)
             {
+            //Debug.Log(hit.collider.name);
                 if (hit.collider.gameObject.tag == "player") 
                 { 
-                    if (currentHand.GetComponent<ItemCell>() != null)
-                    {
-                        Item item = currentHand.GetComponent<ItemCell>().item;
-                        item.itemUseData.use.Use_On_Player();
-                    }
+                    Item item = currentHand.GetComponent<ItemCell>().item;
+                    item.itemUseData.use.Use_On_Player();
+                }
+
+                //TODO: создать радиус подбора дропа
+                // ели на полу айтем и в руках не чего нет
+                if (hit.collider.name.Contains(Global.DROPED_ITEM_PREFIX) 
+                                                 && IsEmpty(currentHand)) 
+                {
+                    GameObject itemGo = hit.collider.gameObject;
+                    Item item = itemGo.GetComponent<ItemCell>().item;
+                    //Item item = itemDB.items[]
+                    //if (item == null) Debug.Log("null");
+                    currentHand.GetComponent<ItemCell>().item = item;
+                    currentHand.GetComponent<Image>().sprite = item.itemSprite;
+                    Destroy(itemGo);
                 }
             }
         }
@@ -158,7 +169,7 @@ public class UIContrall : MonoBehaviour //, IPointerClickHandler
     }
 
     //когда не чего не надето
-    void SetDefaultItem(Button cell) 
+    public void SetDefaultItem(Button cell) 
     {
         Item deffaultItem = itemDB.deffaultItems[cell.name.ToLower()];
         cell.GetComponent<ItemCell>().item = deffaultItem;
