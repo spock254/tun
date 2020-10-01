@@ -42,9 +42,14 @@ public class UIContrall : MonoBehaviour //, IPointerClickHandler
     Image card_sprite;
 
     public GameObject bag_panel;
+    bool isBagOpen = false; 
 
     bool isLeftHand = true;
     public Button currentHand;
+
+    [Header("Player data")]
+    public float actioPlayerRadius;
+    public Transform player;
 
     void Start()
     {
@@ -53,8 +58,10 @@ public class UIContrall : MonoBehaviour //, IPointerClickHandler
         currentHand = left_hand_btn;
         //head_sprite = head_btn.GetComponent<Image>();
         //head_sprite.sprite = itemDB.items[0].itemSprite;
-        left_hand_btn.GetComponent<ItemCell>().item = itemDB.items[0];
-        left_hand_btn.GetComponent<Image>().sprite = itemDB.items[0].itemSprite;
+        //left_hand_btn.GetComponent<ItemCell>().item = itemDB.items[0];
+        //left_hand_btn.GetComponent<Image>().sprite = itemDB.items[0].itemSprite;
+        DressCell(head_btn, itemDB.items[0]);
+        DressCell(right_hand_btn, itemDB.items[1]);
         //    left_hand_btn.GetComponent<ItemCell>().empty_cell_sprite;
     }
 
@@ -85,15 +92,16 @@ public class UIContrall : MonoBehaviour //, IPointerClickHandler
                 //TODO: создать радиус подбора дропа
                 // ели на полу айтем и в руках не чего нет
                 if (hit.collider.name.Contains(Global.DROPED_ITEM_PREFIX) 
-                                                 && IsEmpty(currentHand)) 
+                                      && IsEmpty(currentHand) 
+                                      && IsInActionRadius(mousePos, player.position, actioPlayerRadius)) 
                 {
-                    GameObject itemGo = hit.collider.gameObject;
-                    Item item = itemGo.GetComponent<ItemCell>().item;
-                    //Item item = itemDB.items[]
-                    //if (item == null) Debug.Log("null");
-                    currentHand.GetComponent<ItemCell>().item = item;
-                    currentHand.GetComponent<Image>().sprite = item.itemSprite;
-                    Destroy(itemGo);
+                        Debug.Log("in");
+                        GameObject itemGo = hit.collider.gameObject;
+                        Item item = itemGo.GetComponent<ItemCell>().item;
+
+                        DressCell(currentHand, item);
+
+                        Destroy(itemGo);
                 }
             }
         }
@@ -117,11 +125,10 @@ public class UIContrall : MonoBehaviour //, IPointerClickHandler
             Item itemInHand = currentHand.GetComponent<ItemCell>().item;
 
             if (IsEmpty(cell))  //если не чего не надето
-            { 
-
+            {
                 foreach (var item_types in itemInHand.itemUseData.itemTypes)
                 {
-                    if (itemType == item_types.ToString())
+                    if (isSameTypes(itemType, item_types.ToString()))
                     {
                         DressOrTakeOff(cell, currentHand, itemInHand, true);
                         return;
@@ -148,6 +155,16 @@ public class UIContrall : MonoBehaviour //, IPointerClickHandler
                             itemInCell.itemUseData.use.Use_In_Hands();
                             return;
                         }
+                        else if (item_type == ItemUseData.ItemType.Openable) 
+                        {
+                            if (!isBagOpen) 
+                            { 
+                                itemInCell.itemUseData.use.Use_To_Open();
+                            }
+
+                            CloseOpenBag();
+                            return;
+                        }
                     }
                 }
                 else // если вторая рука пустая
@@ -172,8 +189,7 @@ public class UIContrall : MonoBehaviour //, IPointerClickHandler
     public void SetDefaultItem(Button cell) 
     {
         Item deffaultItem = itemDB.deffaultItems[cell.name.ToLower()];
-        cell.GetComponent<ItemCell>().item = deffaultItem;
-        cell.GetComponent<Image>().sprite = deffaultItem.itemSprite;
+        DressCell(cell, deffaultItem);
     }
 
     void InitCells() 
@@ -191,10 +207,17 @@ public class UIContrall : MonoBehaviour //, IPointerClickHandler
         card_btn.GetComponent<ItemCell>().item = itemDB.deffaultItems["card"];
     }
 
+    void DressCell(Button cellToDress, Item item) 
+    {
+        cellToDress.GetComponent<ItemCell>().item = item;
+        cellToDress.GetComponent<Image>().sprite = item.itemSprite;
+    }
+
     void DressOrTakeOff(Button dressOn, Button takeOff, Item item, bool isDressing) 
     {
-        dressOn.GetComponent<ItemCell>().item = item;
-        dressOn.GetComponent<Image>().sprite = item.itemSprite;
+        //dressOn.GetComponent<ItemCell>().item = item;
+        //dressOn.GetComponent<Image>().sprite = item.itemSprite;
+        DressCell(dressOn, item);
 
         SetDefaultItem(takeOff);
 
@@ -219,5 +242,21 @@ public class UIContrall : MonoBehaviour //, IPointerClickHandler
         }
 
         return left_hand_btn;
+    }
+
+    bool IsInActionRadius(Vector2 mousePos2D, Vector2 objPosition, float radius) 
+    {
+        return Vector2.Distance(mousePos2D, player.position) < actioPlayerRadius;
+    }
+
+    bool isSameTypes(string t1, string t2) 
+    {
+        return t1.ToLower() == t2.ToLower();
+    }
+
+    void CloseOpenBag() 
+    {
+        isBagOpen = !isBagOpen;
+        bag_panel.SetActive(isBagOpen);
     }
 }

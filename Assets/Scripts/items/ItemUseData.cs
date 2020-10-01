@@ -5,8 +5,9 @@ using UnityEngine;
 public class ItemUseData
 {
     public enum ItemSize { Small, Middle, Big }
-    public enum ItemType { Head, Face, Body, Arm, Lags, Bag, Card, 
-                           Unwearable, Untakable, Dragable, HandUsable, NONE }
+    // не может быть одновременно HandUsable и Openable
+    public enum ItemType { Head, Face, Body, Arm, Lags, Bag, Card, Packet_left, Packet_right,
+                           Unwearable, Untakable, Dragable, HandUsable, Openable, NONE }
 
     public ItemSize itemSize;
     [SerializeReference]

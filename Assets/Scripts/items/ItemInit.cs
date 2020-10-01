@@ -21,6 +21,7 @@ public class ItemInit : MonoBehaviour
 
 
     public Sprite sprite_helmet;
+    public Sprite sprite_bag;
     void Awake()
     {
         items = new List<Item>();
@@ -31,8 +32,14 @@ public class ItemInit : MonoBehaviour
                             new ItemUseData.ItemType[] { ItemUseData.ItemType.Head, 
                                                          ItemUseData.ItemType.HandUsable }), 
                             sprite_helmet);
+        Item bag = new Item(new ItemFightStats(0, 0), "bag", 150,
+            new ItemUseData(ItemUseData.ItemSize.Middle, new DummyItemUse(),
+                            new ItemUseData.ItemType[] { ItemUseData.ItemType.Bag,
+                                                        ItemUseData.ItemType.Openable}),
+                            sprite_bag);
 
         items.Add(helmet);
+        items.Add(bag);
 
         InitDefaultItems();
     }
