@@ -8,11 +8,11 @@ public class ActionPanelController : MonoBehaviour
     public Transform player;
     public Transform prefab;
     //Button currrentHand;
-    UIContrall uiContrall;
+    Controller uiContrall;
     void Start()
     {
         uiContrall = GameObject.FindGameObjectWithTag("ui")
-                        .GetComponent<UIContrall>();
+                        .GetComponent<Controller>();
         //currrentHand = uiContrall.currentHand;
     }
 

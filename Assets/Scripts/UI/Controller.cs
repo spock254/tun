@@ -4,42 +4,38 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UIContrall : MonoBehaviour //, IPointerClickHandler
+public class Controller : MonoBehaviour //, IPointerClickHandler
 {
     public ItemInit itemDB;
 
     public Button head_btn;
-    Image head_sprite;
 
     public Button face_btn;
-    Image face_sprite;
 
     public Button body_btn;
-    Image body_sprite;
     
     public Button arm_btn;
-    Image arm_sprite;
     
     public Button lags_btn;
-    Image lags_sprite;
 
     public Button bag_btn;
-    Image bag_sprite;
 
     public Button left_hand_btn;
-    Image left_hand_sprite;
 
     public Button right_hand_btn;
-    Image right_hand_sprite;
 
     public Button left_pack_btn;
-    Image left_pack_sprite;
 
     public Button right_pack_btn;
-    Image right_pack_sprite;
 
     public Button card_btn;
-    Image card_sprite;
+
+    [Header("Bag cells")]
+    public Button bagCell1;
+    public Button bagCell2;
+    public Button bagCell3;
+    public Button bagCell4;
+    public Button bagCell5;
 
     public GameObject bag_panel;
     bool isBagOpen = false; 
@@ -80,9 +76,9 @@ public class UIContrall : MonoBehaviour //, IPointerClickHandler
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
             RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
+
             if (hit.collider != null)
             {
-            //Debug.Log(hit.collider.name);
                 if (hit.collider.gameObject.tag == "player") 
                 { 
                     Item item = currentHand.GetComponent<ItemCell>().item;
@@ -92,10 +88,9 @@ public class UIContrall : MonoBehaviour //, IPointerClickHandler
                 //TODO: создать радиус подбора дропа
                 // ели на полу айтем и в руках не чего нет
                 if (hit.collider.name.Contains(Global.DROPED_ITEM_PREFIX) 
-                                      && IsEmpty(currentHand) 
-                                      && IsInActionRadius(mousePos, player.position, actioPlayerRadius)) 
+                && IsEmpty(currentHand) 
+                && IsInActionRadius(mousePos, player.position, actioPlayerRadius)) 
                 {
-                        Debug.Log("in");
                         GameObject itemGo = hit.collider.gameObject;
                         Item item = itemGo.GetComponent<ItemCell>().item;
 
@@ -107,17 +102,32 @@ public class UIContrall : MonoBehaviour //, IPointerClickHandler
         }
     }
 
-    Button SwapActiveHand() 
+    public void OnBagButtonClick(string bagCellIndex) 
     {
-        isLeftHand = !isLeftHand;
-        currentHand.GetComponentInChildren<Text>().text = " ";
-        return isLeftHand ? left_hand_btn : right_hand_btn;
+        GameObject bagCellGo = GameObject.FindGameObjectWithTag(bagCellIndex);
+        Button bagCellBtn = bagCellGo.GetComponent<Button>();
+        Item bagItem = bagCellGo.GetComponent<ItemCell>().item;
+        Item handItem = currentHand.GetComponent<ItemCell>().item;
+
+
+        if (IsEmpty(currentHand))
+        {
+            DressCell(currentHand, bagItem);
+            SetDefaultItem(bagCellBtn);
+        }
+        else //TODO: проверить если достаточно места в сумке 
+        {
+            DressCell(bagCellBtn, handItem);
+            SetDefaultItem(currentHand);
+        }
+        
     }
 
     public void OnInvButtonClick(string itemType) 
     { 
         GameObject cellGo = GameObject.FindGameObjectWithTag(itemType.ToString()
                                     .ToLower() + "_cell");
+
         Button cell = cellGo.GetComponent<Button>();
 
         if (!IsEmpty(currentHand)) //если в руке что то есть
@@ -126,6 +136,16 @@ public class UIContrall : MonoBehaviour //, IPointerClickHandler
 
             if (IsEmpty(cell))  //если не чего не надето
             {
+                // если сумка открыта, тогда закрыть
+                foreach (var item_types in itemInHand.itemUseData.itemTypes)
+                {
+                    Debug.Log("close");
+                    if (item_types == ItemUseData.ItemType.Openable && isBagOpen)
+                    {
+                        CloseOpenBag();
+                    }
+                }
+
                 foreach (var item_types in itemInHand.itemUseData.itemTypes)
                 {
                     if (isSameTypes(itemType, item_types.ToString()))
@@ -157,12 +177,20 @@ public class UIContrall : MonoBehaviour //, IPointerClickHandler
                         }
                         else if (item_type == ItemUseData.ItemType.Openable) 
                         {
+                            // TODO:  
                             if (!isBagOpen) 
                             { 
                                 itemInCell.itemUseData.use.Use_To_Open();
                             }
 
                             CloseOpenBag();
+
+                            if (isBagOpen) 
+                            {
+                                BagContentInit(itemInCell);
+                                Debug.Log("bag init");
+                            }
+
                             return;
                         }
                     }
@@ -205,6 +233,12 @@ public class UIContrall : MonoBehaviour //, IPointerClickHandler
         left_pack_btn.GetComponent<ItemCell>().item = itemDB.deffaultItems["packet_left"];
         right_pack_btn.GetComponent<ItemCell>().item = itemDB.deffaultItems["packet_right"];
         card_btn.GetComponent<ItemCell>().item = itemDB.deffaultItems["card"];
+
+        bagCell1.GetComponent<ItemCell>().item = itemDB.deffaultItems["1"];
+        bagCell2.GetComponent<ItemCell>().item = itemDB.deffaultItems["2"];
+        bagCell3.GetComponent<ItemCell>().item = itemDB.deffaultItems["3"];
+        bagCell4.GetComponent<ItemCell>().item = itemDB.deffaultItems["4"];
+        bagCell5.GetComponent<ItemCell>().item = itemDB.deffaultItems["5"];
     }
 
     void DressCell(Button cellToDress, Item item) 
@@ -258,5 +292,21 @@ public class UIContrall : MonoBehaviour //, IPointerClickHandler
     {
         isBagOpen = !isBagOpen;
         bag_panel.SetActive(isBagOpen);
+    }
+    Button SwapActiveHand() 
+    {
+        isLeftHand = !isLeftHand;
+        currentHand.GetComponentInChildren<Text>().text = " ";
+        return isLeftHand ? left_hand_btn : right_hand_btn;
+    }
+
+    void BagContentInit(Item bag) 
+    {
+        Button[] cells = bag_panel.GetComponentsInChildren<Button>();
+        for (int i = 0; i < bag.innerItems.Count; i++)
+        {
+            // img[i].sprite = bag.innerItems[i].itemSprite;
+            DressCell(cells[i], bag.innerItems[i]);
+        }
     }
 }

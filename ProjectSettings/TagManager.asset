@@ -23,6 +23,11 @@ TagManager:
   - left_hand_cell
   - drop
   - ui
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
   layers:
   - Default
   - TransparentFX

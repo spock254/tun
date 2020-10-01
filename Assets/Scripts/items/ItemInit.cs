@@ -18,10 +18,11 @@ public class ItemInit : MonoBehaviour
     [SerializeField] Sprite left_pack;
     [SerializeField] Sprite right_pack;
     [SerializeField] Sprite card;
-
+    [SerializeField] Sprite bagCell;
 
     public Sprite sprite_helmet;
     public Sprite sprite_bag;
+    public Sprite sprite_chest;
     void Awake()
     {
         items = new List<Item>();
@@ -31,12 +32,19 @@ public class ItemInit : MonoBehaviour
             new ItemUseData(ItemUseData.ItemSize.Middle, new DummyItemUse(),
                             new ItemUseData.ItemType[] { ItemUseData.ItemType.Head, 
                                                          ItemUseData.ItemType.HandUsable }), 
-                            sprite_helmet);
+                            sprite_helmet, Global.Item.MIDDLE_SIZE, null);
+
+        Item chest = new Item(new ItemFightStats(0, 10), "chest", 200,
+            new ItemUseData(ItemUseData.ItemSize.Middle, new DummyItemUse(),
+                    new ItemUseData.ItemType[] { ItemUseData.ItemType.Body,
+                                                         ItemUseData.ItemType.HandUsable }),
+                    sprite_chest, Global.Item.MIDDLE_SIZE, null);
+
         Item bag = new Item(new ItemFightStats(0, 0), "bag", 150,
             new ItemUseData(ItemUseData.ItemSize.Middle, new DummyItemUse(),
                             new ItemUseData.ItemType[] { ItemUseData.ItemType.Bag,
                                                         ItemUseData.ItemType.Openable}),
-                            sprite_bag);
+                            sprite_bag, 10, new List<Item>() { chest });
 
         items.Add(helmet);
         items.Add(bag);
@@ -57,5 +65,11 @@ public class ItemInit : MonoBehaviour
         deffaultItems.Add("packet_left", new Item("packet_left", new ItemUseData(new UseLeftPack()), left_pack));
         deffaultItems.Add("packet_right", new Item("packet_right", new ItemUseData(new UseRightPack()), right_pack));
         deffaultItems.Add("card", new Item("card", new ItemUseData(new UseCard()), card));
+        
+        deffaultItems.Add("1", new Item("1", new ItemUseData(new UseBagCell()), bagCell));
+        deffaultItems.Add("2", new Item("2", new ItemUseData(new UseBagCell()), bagCell));
+        deffaultItems.Add("3", new Item("3", new ItemUseData(new UseBagCell()), bagCell));
+        deffaultItems.Add("4", new Item("4", new ItemUseData(new UseBagCell()), bagCell));
+        deffaultItems.Add("5", new Item("5", new ItemUseData(new UseBagCell()), bagCell));
     }
 }
