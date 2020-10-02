@@ -22,7 +22,9 @@ public class ItemInit : MonoBehaviour
 
     public Sprite sprite_helmet;
     public Sprite sprite_bag;
+    public Sprite sprite_bag2;
     public Sprite sprite_chest;
+    public Sprite sprite_card;
     void Awake()
     {
         items = new List<Item>();
@@ -46,8 +48,24 @@ public class ItemInit : MonoBehaviour
                                                         ItemUseData.ItemType.Openable}),
                             sprite_bag, 10, new List<Item>() { chest });
 
+
+        Item card = new Item(new ItemFightStats(0, 0), "card", 200,
+                new ItemUseData(ItemUseData.ItemSize.Small, new DummyItemUse(),
+                            new ItemUseData.ItemType[] { ItemUseData.ItemType.Card,
+                                                         ItemUseData.ItemType.Packet_left,
+                                                         ItemUseData.ItemType.Packet_right}),
+            sprite_card, 2, null);
+
+        Item bag2 = new Item(new ItemFightStats(0, 0), "bag2", 150,
+            new ItemUseData(ItemUseData.ItemSize.Middle, new DummyItemUse(),
+                    new ItemUseData.ItemType[] { ItemUseData.ItemType.Bag,
+                                                 ItemUseData.ItemType.Openable}),
+                    sprite_bag2, 10, new List<Item>() { card });
+
         items.Add(helmet);
         items.Add(bag);
+        items.Add(bag2);
+        items.Add(card);
 
         InitDefaultItems();
     }

@@ -72,7 +72,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: -2493106231213988773, guid: ef7bad5a2b12a8649b3575fe584ad27d,
+  m_Sprite: {fileID: 8559799574277936712, guid: a8e26c5fa6ea8e64ebc829c215087222,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -97,15 +97,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    id: 696029465
-    itemSprite: {fileID: -2493106231213988773, guid: ef7bad5a2b12a8649b3575fe584ad27d,
+    id: -1993599661
+    itemSprite: {fileID: 8559799574277936712, guid: a8e26c5fa6ea8e64ebc829c215087222,
       type: 3}
     stats:
       playerStats: 5
       value: 0
       duration: 0
       time: 0
-    itemName: bag
+    itemName: bag2
     itemPrice: 150
     itemUseData:
       itemSize: 1
@@ -113,33 +113,10 @@ MonoBehaviour:
         id: 0
       itemTypes: 050000000d000000
     capacity: 10
-    innerItems:
-    - id: 1
+    innerItems: []
   references:
     version: 1
     00000000:
-      type: {class: DummyItemUse, ns: , asm: Assembly-CSharp}
-    00000001:
-      type: {class: Item, ns: , asm: Assembly-CSharp}
-      data:
-        id: -696947694
-        itemSprite: {fileID: 6013599830262996141, guid: ef7bad5a2b12a8649b3575fe584ad27d,
-          type: 3}
-        stats:
-          playerStats: 5
-          value: 0
-          duration: 0
-          time: 0
-        itemName: chest
-        itemPrice: 200
-        itemUseData:
-          itemSize: 1
-          use:
-            id: 2
-          itemTypes: 020000000c000000
-        capacity: 3
-        innerItems: []
-    00000002:
       type: {class: DummyItemUse, ns: , asm: Assembly-CSharp}
 --- !u!61 &6379150749542398364
 BoxCollider2D:
@@ -158,7 +135,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.32, y: 0.32}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 0.32, y: 0.32}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

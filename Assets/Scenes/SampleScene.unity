@@ -2052,7 +2052,11 @@ MonoBehaviour:
     type: 3}
   sprite_bag: {fileID: -2493106231213988773, guid: ef7bad5a2b12a8649b3575fe584ad27d,
     type: 3}
+  sprite_bag2: {fileID: 8559799574277936712, guid: a8e26c5fa6ea8e64ebc829c215087222,
+    type: 3}
   sprite_chest: {fileID: 6013599830262996141, guid: ef7bad5a2b12a8649b3575fe584ad27d,
+    type: 3}
+  sprite_card: {fileID: -8804587643053558981, guid: e3915133abcf5854ba42a77bc51a524b,
     type: 3}
   references:
     version: 1
@@ -4204,6 +4208,7 @@ MonoBehaviour:
   bagCell4: {fileID: 327555316}
   bagCell5: {fileID: 1582509046}
   bag_panel: {fileID: 96867979}
+  isBagOpen: 0
   currentHand: {fileID: 0}
   actioPlayerRadius: 1
   player: {fileID: 43560103}

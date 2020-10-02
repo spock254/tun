@@ -21,6 +21,12 @@ public class ActionPanelController : MonoBehaviour
     {
         if (!uiContrall.IsEmpty(uiContrall.currentHand))
         {
+            //если открытака сумка, перед дропом закрыть
+            if (uiContrall.isBagOpen) 
+            {
+                uiContrall.CloseOpenBag();
+            }
+
             Item item = uiContrall.currentHand.GetComponent<ItemCell>().item;
             item.itemUseData.use.Use_To_Drop(prefab, player, item);
 

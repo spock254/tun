@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -38,7 +39,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
     public Button bagCell5;
 
     public GameObject bag_panel;
-    bool isBagOpen = false; 
+    public bool isBagOpen = false; 
 
     bool isLeftHand = true;
     public Button currentHand;
@@ -58,6 +59,8 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
         //left_hand_btn.GetComponent<Image>().sprite = itemDB.items[0].itemSprite;
         DressCell(head_btn, itemDB.items[0]);
         DressCell(right_hand_btn, itemDB.items[1]);
+        DressCell(left_pack_btn, itemDB.items[3]);
+        DressCell(bag_btn, itemDB.items[2]);
         //    left_hand_btn.GetComponent<ItemCell>().empty_cell_sprite;
     }
 
@@ -106,17 +109,20 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
     {
         GameObject bagCellGo = GameObject.FindGameObjectWithTag(bagCellIndex);
         Button bagCellBtn = bagCellGo.GetComponent<Button>();
+
         Item bagItem = bagCellGo.GetComponent<ItemCell>().item;
         Item handItem = currentHand.GetComponent<ItemCell>().item;
-
+        Item bag = GetAnotherHand().GetComponent<ItemCell>().item;
 
         if (IsEmpty(currentHand))
         {
             DressCell(currentHand, bagItem);
             SetDefaultItem(bagCellBtn);
+            RemoveItemFromBag(bagCellIndex);
         }
         else //TODO: проверить если достаточно места в сумке 
         {
+            bag.innerItems.Add(handItem);
             DressCell(bagCellBtn, handItem);
             SetDefaultItem(currentHand);
         }
@@ -247,10 +253,13 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
         cellToDress.GetComponent<Image>().sprite = item.itemSprite;
     }
 
+    void RemoveItemFromBag(string bagCellIndex) 
+    {
+        GetAnotherHand().GetComponent<ItemCell>().item.innerItems.RemoveAt(Int32.Parse(bagCellIndex) - 1);
+    }
+
     void DressOrTakeOff(Button dressOn, Button takeOff, Item item, bool isDressing) 
     {
-        //dressOn.GetComponent<ItemCell>().item = item;
-        //dressOn.GetComponent<Image>().sprite = item.itemSprite;
         DressCell(dressOn, item);
 
         SetDefaultItem(takeOff);
@@ -288,7 +297,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
         return t1.ToLower() == t2.ToLower();
     }
 
-    void CloseOpenBag() 
+    public void CloseOpenBag() 
     {
         isBagOpen = !isBagOpen;
         bag_panel.SetActive(isBagOpen);
@@ -303,10 +312,16 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
     void BagContentInit(Item bag) 
     {
         Button[] cells = bag_panel.GetComponentsInChildren<Button>();
-        for (int i = 0; i < bag.innerItems.Count; i++)
+        int i = 0;
+
+        for (; i < bag.innerItems.Count; i++)
         {
-            // img[i].sprite = bag.innerItems[i].itemSprite;
             DressCell(cells[i], bag.innerItems[i]);
+        }
+
+        for (; i < cells.Length; i++)
+        {
+            SetDefaultItem(cells[i]);
         }
     }
 }
