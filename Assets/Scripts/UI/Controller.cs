@@ -78,28 +78,36 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
         {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
-            RaycastHit2D hit = Physics2D.Raycast(mousePos2D, Vector2.zero);
+            RaycastHit2D[] hits = Physics2D.RaycastAll(mousePos2D, Vector2.zero);
 
-            if (hit.collider != null)
+            foreach (var hit in hits)
             {
-                if (hit.collider.gameObject.tag == "player") 
-                { 
-                    Item item = currentHand.GetComponent<ItemCell>().item;
-                    item.itemUseData.use.Use_On_Player();
-                }
-
-                //TODO: создать радиус подбора дропа
-                // ели на полу айтем и в руках не чего нет
-                if (hit.collider.name.Contains(Global.DROPED_ITEM_PREFIX) 
-                && IsEmpty(currentHand) 
-                && IsInActionRadius(mousePos, player.position, actioPlayerRadius)) 
+                if (hit.collider != null && IsInActionRadius(mousePos, player.position, actioPlayerRadius))
                 {
-                        GameObject itemGo = hit.collider.gameObject;
-                        Item item = itemGo.GetComponent<ItemCell>().item;
+                    //Debug.Log(hit.collider.tag);
 
-                        DressCell(currentHand, item);
+                    if (hit.collider.gameObject.tag == "player") 
+                    { 
+                        Item item = currentHand.GetComponent<ItemCell>().item;
+                        item.itemUseData.use.Use_On_Player();
+                    }
 
-                        Destroy(itemGo);
+                    if (hit.collider.gameObject.tag == "case") 
+                    {
+                        Debug.Log("case use");
+                    }
+
+                    // ели на полу айтем и в руках не чего нет
+                    if (hit.collider.name.Contains(Global.DROPED_ITEM_PREFIX) 
+                    && IsEmpty(currentHand)) 
+                    {
+                            GameObject itemGo = hit.collider.gameObject;
+                            Item item = itemGo.GetComponent<ItemCell>().item;
+
+                            DressCell(currentHand, item);
+
+                            Destroy(itemGo);
+                    }
                 }
             }
         }

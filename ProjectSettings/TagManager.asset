@@ -28,6 +28,7 @@ TagManager:
   - 3
   - 4
   - 5
+  - case
   layers:
   - Default
   - TransparentFX
