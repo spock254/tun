@@ -122,9 +122,26 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
         }
         else //TODO: проверить если достаточно места в сумке 
         {
-            bag.innerItems.Add(handItem);
-            DressCell(bagCellBtn, handItem);
-            SetDefaultItem(currentHand);
+            // избежание добавления сумки в ту же сумку
+            if (IsEmpty(GetAnotherHand())) 
+            {
+                return;
+            }
+
+            // для свапа айтема между рукой и ячейкой
+            if (!IsEmpty(bagCellBtn))
+            {
+                bag.innerItems.Add(handItem);
+                bag.innerItems.Remove(bagItem);
+                DressCell(currentHand, bagItem);
+                DressCell(bagCellBtn, handItem);
+            }
+            else 
+            { 
+                bag.innerItems.Add(handItem);
+                DressCell(bagCellBtn, handItem);
+                SetDefaultItem(currentHand);
+            }
         }
         
     }
