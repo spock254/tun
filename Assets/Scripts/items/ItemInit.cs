@@ -89,5 +89,10 @@ public class ItemInit : MonoBehaviour
         {
             deffaultItems.Add(i.ToString(), new Item(i.ToString(), new ItemUseData(new UseBagCell()), bagCell));
         }
+
+        for (int i = 1; i < 11; i++)
+        {
+            deffaultItems.Add(i.ToString() + "c", new Item(i.ToString() + "c", new ItemUseData(new UseBagCell()), bagCell));
+        }
     }
 }

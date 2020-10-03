@@ -24,7 +24,7 @@ public class ActionPanelController : MonoBehaviour
             //если открытака сумка, перед дропом закрыть
             if (uiContrall.isBagOpen) 
             {
-                uiContrall.CloseOpenBag();
+                uiContrall.CloseOpenContainer(uiContrall.bag_panel, ref uiContrall.isBagOpen);
             }
 
             Item item = uiContrall.currentHand.GetComponent<ItemCell>().item;

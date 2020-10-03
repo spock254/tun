@@ -14,9 +14,9 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
     public Button face_btn;
 
     public Button body_btn;
-    
+
     public Button arm_btn;
-    
+
     public Button lags_btn;
 
     public Button bag_btn;
@@ -44,7 +44,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
     public Button bagCell10;
 
     public GameObject bag_panel;
-    public bool isBagOpen = false; 
+    public bool isBagOpen = false;
 
     bool isLeftHand = true;
     public Button currentHand;
@@ -53,8 +53,13 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
     public float actioPlayerRadius;
     public Transform player;
 
+    // Events
+    //StaticCaseItemEvent staticCaseItemEvent;
+    public EventController eventController;
+
     void Start()
     {
+
         InitCells();
 
         currentHand = left_hand_btn;
@@ -69,11 +74,16 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
         //    left_hand_btn.GetComponent<ItemCell>().empty_cell_sprite;
     }
 
+    public List<Item> GetInnerItems()
+    {
+        return GetAnotherHand().GetComponent<ItemCell>().item.innerItems;
+    }
+
     // Update is called once per frame
     void Update()
     {
 
-        if (Input.mouseScrollDelta.y != 0) 
+        if (Input.mouseScrollDelta.y != 0)
         {
             currentHand = SwapActiveHand();
             currentHand.GetComponentInChildren<Text>().text = "*";
@@ -91,34 +101,36 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                 {
                     //Debug.Log(hit.collider.tag);
 
-                    if (hit.collider.gameObject.tag == "player") 
-                    { 
+                    if (hit.collider.gameObject.tag == "player")
+                    {
                         Item item = currentHand.GetComponent<ItemCell>().item;
                         item.itemUseData.use.Use_On_Player();
                     }
 
-                    if (hit.collider.gameObject.tag == "case") 
+                    if (hit.collider.gameObject.tag == "case")
                     {
+                        CaseItem caseItem = hit.collider.GetComponent<CaseItem>();
+                        eventController.OnStaticCaseItemEvent.Invoke(caseItem);
                         Debug.Log("case use");
                     }
 
                     // ели на полу айтем и в руках не чего нет
-                    if (hit.collider.name.Contains(Global.DROPED_ITEM_PREFIX) 
-                    && IsEmpty(currentHand)) 
+                    if (hit.collider.name.Contains(Global.DROPED_ITEM_PREFIX)
+                    && IsEmpty(currentHand))
                     {
-                            GameObject itemGo = hit.collider.gameObject;
-                            Item item = itemGo.GetComponent<ItemCell>().item;
+                        GameObject itemGo = hit.collider.gameObject;
+                        Item item = itemGo.GetComponent<ItemCell>().item;
 
-                            DressCell(currentHand, item);
+                        DressCell(currentHand, item);
 
-                            Destroy(itemGo);
+                        Destroy(itemGo);
                     }
                 }
             }
         }
     }
 
-    public void OnBagButtonClick(string bagCellIndex) 
+    public void OnBagButtonClick(string bagCellIndex)
     {
         GameObject bagCellGo = GameObject.FindGameObjectWithTag(bagCellIndex);
         Button bagCellBtn = bagCellGo.GetComponent<Button>();
@@ -127,46 +139,44 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
         Item handItem = currentHand.GetComponent<ItemCell>().item;
         Item bag = GetAnotherHand().GetComponent<ItemCell>().item;
 
-        if (IsEmpty(currentHand))
+        // избежание добавления сумки в ту же сумку
+        if (IsEmpty(GetAnotherHand()))
+        {
+            return;
+        }
+
+        if (IsEmpty(currentHand) && !IsEmpty(bagCellBtn))
         {
             bag.innerItems.Remove(bagItem);
             DressCell(currentHand, bagItem);
             SetDefaultItem(bagCellBtn);
         }
-        else //TODO: проверить если достаточно места в сумке 
+        else if (!IsEmpty(currentHand) && IsEmpty(bagCellBtn)) //TODO: проверить если достаточно места в сумке 
         {
-            // избежание добавления сумки в ту же сумку
-            if (IsEmpty(GetAnotherHand())) 
-            {
-                return;
-            }
 
-            //if (bag.CountInnerCapacity() + )
-            // для свапа айтема между рукой и ячейкой
-            if (!IsEmpty(bagCellBtn))
-            {
-                // если достаточно места в сумке для свапа
-                if (bag.CountInnerCapacity() - bagItem.GetItemSize() + handItem.GetItemSize() <= bag.capacity) 
-                { 
-                    bag.innerItems.Add(handItem);
-                    bag.innerItems.Remove(bagItem);
-                    DressCell(currentHand, bagItem);
-                    DressCell(bagCellBtn, handItem);
-                }
-            }
-            else 
-            {
-                // если достаточно места в сумке для добавления
-                if (bag.CountInnerCapacity() + handItem.GetItemSize() <= bag.capacity) 
-                { 
-                    bag.innerItems.Add(handItem);
-                    DressCell(bagCellBtn, handItem);
-                    SetDefaultItem(currentHand);                
-                }
+            // если достаточно места в сумке для добавления
+             if (bag.CountInnerCapacity() + handItem.GetItemSize() <= bag.capacity) 
+             { 
+                 bag.innerItems.Add(handItem);
+                 DressCell(bagCellBtn, handItem);
+                 SetDefaultItem(currentHand);
             }
         }
-            Debug.Log(bag.CountInnerCapacity() +" / " + bag.capacity);
+        else if (!IsEmpty(currentHand) && !IsEmpty(bagCellBtn))
+        {
+            // если достаточно места в сумке для свапа
+            if (bag.CountInnerCapacity() - bagItem.GetItemSize() + handItem.GetItemSize() <= bag.capacity)
+            {
+                bag.innerItems.Add(handItem);
+                bag.innerItems.Remove(bagItem);
+                DressCell(currentHand, bagItem);
+                DressCell(bagCellBtn, handItem);
+            }
+        }
+        Debug.Log(bag.CountInnerCapacity() +" / " + bag.capacity);
     }
+
+
 
     public void OnInvButtonClick(string itemType) 
     { 
@@ -187,7 +197,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                     Debug.Log("close");
                     if (item_types == ItemUseData.ItemType.Openable && isBagOpen)
                     {
-                        CloseOpenBag();
+                        CloseOpenContainer(bag_panel, ref isBagOpen);
                     }
                 }
 
@@ -228,11 +238,11 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                                 itemInCell.itemUseData.use.Use_To_Open();
                             }
 
-                            CloseOpenBag();
+                            CloseOpenContainer(bag_panel, ref isBagOpen);
 
                             if (isBagOpen) 
                             {
-                                BagContentInit(itemInCell);
+                                ContainerContentInit(itemInCell.innerItems, bag_panel);
                                 Debug.Log("bag init");
                             }
 
@@ -291,7 +301,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
         bagCell10.GetComponent<ItemCell>().item = itemDB.deffaultItems["10"];
     }
 
-    void DressCell(Button cellToDress, Item item) 
+    public void DressCell(Button cellToDress, Item item) 
     {
         cellToDress.GetComponent<ItemCell>().item = item;
         cellToDress.GetComponent<Image>().sprite = item.itemSprite;
@@ -316,7 +326,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
     {
         return button.GetComponent<ItemCell>().item == itemDB.deffaultItems[button.name.ToLower()];
     }
-    Button GetAnotherHand() 
+    public Button GetAnotherHand() 
     {
         if (currentHand == left_hand_btn) 
         {
@@ -336,10 +346,10 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
         return t1.ToLower() == t2.ToLower();
     }
 
-    public void CloseOpenBag() 
+    public void CloseOpenContainer(GameObject panel, ref bool isOpen) 
     {
-        isBagOpen = !isBagOpen;
-        bag_panel.SetActive(isBagOpen);
+        isOpen = !isOpen;
+        panel.SetActive(isOpen);
     }
     Button SwapActiveHand() 
     {
@@ -348,14 +358,14 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
         return isLeftHand ? left_hand_btn : right_hand_btn;
     }
 
-    void BagContentInit(Item bag) 
+    public void ContainerContentInit(List<Item> innerItems, GameObject panel) 
     {
-        Button[] cells = bag_panel.GetComponentsInChildren<Button>();
+        Button[] cells = panel.GetComponentsInChildren<Button>();
         int i = 0;
 
-        for (; i < bag.innerItems.Count; i++)
+        for (; i < innerItems.Count; i++)
         {
-            DressCell(cells[i], bag.innerItems[i]);
+            DressCell(cells[i], innerItems[i]);
         }
 
         //if (bag.innerItems.Count < cells.Length) 

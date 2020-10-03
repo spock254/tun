@@ -72,8 +72,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: -2493106231213988773, guid: ef7bad5a2b12a8649b3575fe584ad27d,
-    type: 3}
+  m_Sprite: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -97,121 +96,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    id: 696029465
-    itemSprite: {fileID: -2493106231213988773, guid: ef7bad5a2b12a8649b3575fe584ad27d,
-      type: 3}
+    id: 0
+    itemSprite: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
     stats:
-      playerStats: 5
+      playerStats: 0
       value: 0
       duration: 0
       time: 0
-    itemName: bag
-    itemPrice: 150
+    itemName: 4c
+    itemPrice: 0
     itemUseData:
-      itemSize: 2
+      itemSize: 0
       use:
         id: 0
-      itemTypes: 050000000d000000
-    innerItems:
-    - id: 1
-    - id: 2
-    - id: 3
-    - id: 4
-    - id: 4
-    - id: 4
-    capacity: 10
+      itemTypes: 0e000000
+    innerItems: []
+    capacity: 0
   references:
     version: 1
     00000000:
-      type: {class: DummyItemUse, ns: , asm: Assembly-CSharp}
-    00000001:
-      type: {class: Item, ns: , asm: Assembly-CSharp}
-      data:
-        id: -696947694
-        itemSprite: {fileID: 6013599830262996141, guid: ef7bad5a2b12a8649b3575fe584ad27d,
-          type: 3}
-        stats:
-          playerStats: 5
-          value: 0
-          duration: 0
-          time: 0
-        itemName: chest
-        itemPrice: 200
-        itemUseData:
-          itemSize: 1
-          use:
-            id: 5
-          itemTypes: 020000000c000000
-        innerItems: []
-        capacity: 3
-    00000002:
-      type: {class: Item, ns: , asm: Assembly-CSharp}
-      data:
-        id: -930076730
-        itemSprite: {fileID: 338616210289973951, guid: ef7bad5a2b12a8649b3575fe584ad27d,
-          type: 3}
-        stats:
-          playerStats: 5
-          value: 0
-          duration: 0
-          time: 0
-        itemName: helmet
-        itemPrice: 200
-        itemUseData:
-          itemSize: 1
-          use:
-            id: 6
-          itemTypes: 000000000c000000
-        innerItems: []
-        capacity: 3
-    00000003:
-      type: {class: Item, ns: , asm: Assembly-CSharp}
-      data:
-        id: 762134937
-        itemSprite: {fileID: -8804587643053558981, guid: e3915133abcf5854ba42a77bc51a524b,
-          type: 3}
-        stats:
-          playerStats: 5
-          value: 0
-          duration: 0
-          time: 0
-        itemName: card
-        itemPrice: 200
-        itemUseData:
-          itemSize: 0
-          use:
-            id: 7
-          itemTypes: 060000000700000008000000
-        innerItems: []
-        capacity: 2
-    00000004:
-      type: {class: Item, ns: , asm: Assembly-CSharp}
-      data:
-        id: 762134937
-        itemSprite: {fileID: -8804587643053558981, guid: e3915133abcf5854ba42a77bc51a524b,
-          type: 3}
-        stats:
-          playerStats: 5
-          value: 0
-          duration: 0
-          time: 0
-        itemName: card
-        itemPrice: 200
-        itemUseData:
-          itemSize: 0
-          use:
-            id: 8
-          itemTypes: 060000000700000008000000
-        innerItems: []
-        capacity: 2
-    00000005:
-      type: {class: DummyItemUse, ns: , asm: Assembly-CSharp}
-    00000006:
-      type: {class: DummyItemUse, ns: , asm: Assembly-CSharp}
-    00000007:
-      type: {class: DummyItemUse, ns: , asm: Assembly-CSharp}
-    00000008:
-      type: {class: DummyItemUse, ns: , asm: Assembly-CSharp}
+      type: {class: UseBagCell, ns: , asm: Assembly-CSharp}
 --- !u!61 &6379150749542398364
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -227,9 +131,9 @@ BoxCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
+    border: {x: 0.049999997, y: 0.049999997, z: 0.049999997, w: 0.049999997}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.32, y: 0.32}
+    oldSize: {x: 0.16, y: 0.16}
     newSize: {x: 0.32, y: 0.32}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
