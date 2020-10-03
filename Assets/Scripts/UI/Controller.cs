@@ -37,6 +37,11 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
     public Button bagCell3;
     public Button bagCell4;
     public Button bagCell5;
+    public Button bagCell6;
+    public Button bagCell7;
+    public Button bagCell8;
+    public Button bagCell9;
+    public Button bagCell10;
 
     public GameObject bag_panel;
     public bool isBagOpen = false; 
@@ -124,9 +129,9 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
 
         if (IsEmpty(currentHand))
         {
+            bag.innerItems.Remove(bagItem);
             DressCell(currentHand, bagItem);
             SetDefaultItem(bagCellBtn);
-            RemoveItemFromBag(bagCellIndex);
         }
         else //TODO: проверить если достаточно места в сумке 
         {
@@ -136,22 +141,31 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                 return;
             }
 
+            //if (bag.CountInnerCapacity() + )
             // для свапа айтема между рукой и ячейкой
             if (!IsEmpty(bagCellBtn))
             {
-                bag.innerItems.Add(handItem);
-                bag.innerItems.Remove(bagItem);
-                DressCell(currentHand, bagItem);
-                DressCell(bagCellBtn, handItem);
+                // если достаточно места в сумке для свапа
+                if (bag.CountInnerCapacity() - bagItem.GetItemSize() + handItem.GetItemSize() <= bag.capacity) 
+                { 
+                    bag.innerItems.Add(handItem);
+                    bag.innerItems.Remove(bagItem);
+                    DressCell(currentHand, bagItem);
+                    DressCell(bagCellBtn, handItem);
+                }
             }
             else 
-            { 
-                bag.innerItems.Add(handItem);
-                DressCell(bagCellBtn, handItem);
-                SetDefaultItem(currentHand);
+            {
+                // если достаточно места в сумке для добавления
+                if (bag.CountInnerCapacity() + handItem.GetItemSize() <= bag.capacity) 
+                { 
+                    bag.innerItems.Add(handItem);
+                    DressCell(bagCellBtn, handItem);
+                    SetDefaultItem(currentHand);                
+                }
             }
         }
-        
+            Debug.Log(bag.CountInnerCapacity() +" / " + bag.capacity);
     }
 
     public void OnInvButtonClick(string itemType) 
@@ -270,17 +284,17 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
         bagCell3.GetComponent<ItemCell>().item = itemDB.deffaultItems["3"];
         bagCell4.GetComponent<ItemCell>().item = itemDB.deffaultItems["4"];
         bagCell5.GetComponent<ItemCell>().item = itemDB.deffaultItems["5"];
+        bagCell6.GetComponent<ItemCell>().item = itemDB.deffaultItems["6"];
+        bagCell7.GetComponent<ItemCell>().item = itemDB.deffaultItems["7"];
+        bagCell8.GetComponent<ItemCell>().item = itemDB.deffaultItems["8"];
+        bagCell9.GetComponent<ItemCell>().item = itemDB.deffaultItems["9"];
+        bagCell10.GetComponent<ItemCell>().item = itemDB.deffaultItems["10"];
     }
 
     void DressCell(Button cellToDress, Item item) 
     {
         cellToDress.GetComponent<ItemCell>().item = item;
         cellToDress.GetComponent<Image>().sprite = item.itemSprite;
-    }
-
-    void RemoveItemFromBag(string bagCellIndex) 
-    {
-        GetAnotherHand().GetComponent<ItemCell>().item.innerItems.RemoveAt(Int32.Parse(bagCellIndex) - 1);
     }
 
     void DressOrTakeOff(Button dressOn, Button takeOff, Item item, bool isDressing) 
@@ -343,6 +357,11 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
         {
             DressCell(cells[i], bag.innerItems[i]);
         }
+
+        //if (bag.innerItems.Count < cells.Length) 
+        //{ 
+        
+        //}
 
         for (; i < cells.Length; i++)
         {

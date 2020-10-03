@@ -9,7 +9,7 @@ public static class Global
 
     public static class Item 
     {
-        public static int BIG_SIZE = 10;
+        public static int BIG_SIZE = 5;
         public static int MIDDLE_SIZE = 3;
         public static int SMALL_SIZE = 1;
     }

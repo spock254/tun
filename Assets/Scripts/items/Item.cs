@@ -12,9 +12,9 @@ public class Item
     public int itemPrice;
     public ItemUseData itemUseData;
 
-    public int capacity;
     [SerializeReference]
     public List<Item> innerItems;
+    public int capacity;
 
     public Item(ItemStats stats, ItemFightStats itemFightStats, string itemName, 
         int itemPrice, ItemUseData itemUseData, Sprite itemSprite, int capacity, List<Item> innerItems)
@@ -61,17 +61,43 @@ public class Item
             (int)stats.playerStats;
     }
 
-    public int GetItemSize() 
+    public int GetItemSize(Item item) 
     {
-        if (itemUseData.itemSize == ItemUseData.ItemSize.Big)
+        if (item.itemUseData.itemSize == ItemUseData.ItemSize.Big)
         {
             return Global.Item.BIG_SIZE;
         }
-        else if (itemUseData.itemSize == ItemUseData.ItemSize.Middle) 
+        else if (item.itemUseData.itemSize == ItemUseData.ItemSize.Middle) 
         {
             return Global.Item.MIDDLE_SIZE;
         }
 
         return Global.Item.SMALL_SIZE;
+    }
+
+    public int GetItemSize()
+    {
+        if (itemUseData.itemSize == ItemUseData.ItemSize.Big)
+        {
+            return Global.Item.BIG_SIZE;
+        }
+        else if (itemUseData.itemSize == ItemUseData.ItemSize.Middle)
+        {
+            return Global.Item.MIDDLE_SIZE;
+        }
+
+        return Global.Item.SMALL_SIZE;
+    }
+
+    public int CountInnerCapacity() 
+    {
+        int innerCapacity = 0;
+
+        foreach (var item in innerItems)
+        {
+            innerCapacity += GetItemSize(item);
+        }
+
+        return innerCapacity;
     }
 }

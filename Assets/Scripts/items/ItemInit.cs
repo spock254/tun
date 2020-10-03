@@ -43,7 +43,7 @@ public class ItemInit : MonoBehaviour
                     sprite_chest, Global.Item.MIDDLE_SIZE, null);
 
         Item bag = new Item(new ItemFightStats(0, 0), "bag", 150,
-            new ItemUseData(ItemUseData.ItemSize.Middle, new DummyItemUse(),
+            new ItemUseData(ItemUseData.ItemSize.Big, new DummyItemUse(),
                             new ItemUseData.ItemType[] { ItemUseData.ItemType.Bag,
                                                         ItemUseData.ItemType.Openable}),
                             sprite_bag, 10, new List<Item>() { chest });
@@ -57,10 +57,10 @@ public class ItemInit : MonoBehaviour
             sprite_card, 2, null);
 
         Item bag2 = new Item(new ItemFightStats(0, 0), "bag2", 150,
-            new ItemUseData(ItemUseData.ItemSize.Middle, new DummyItemUse(),
+            new ItemUseData(ItemUseData.ItemSize.Big, new DummyItemUse(),
                     new ItemUseData.ItemType[] { ItemUseData.ItemType.Bag,
                                                  ItemUseData.ItemType.Openable}),
-                    sprite_bag2, 10, new List<Item>() { card });
+                    sprite_bag2, 10, new List<Item>() { card, card, card });
 
         items.Add(helmet);
         items.Add(bag);
@@ -83,11 +83,11 @@ public class ItemInit : MonoBehaviour
         deffaultItems.Add("packet_left", new Item("packet_left", new ItemUseData(new UseLeftPack()), left_pack));
         deffaultItems.Add("packet_right", new Item("packet_right", new ItemUseData(new UseRightPack()), right_pack));
         deffaultItems.Add("card", new Item("card", new ItemUseData(new UseCard()), card));
-        
-        deffaultItems.Add("1", new Item("1", new ItemUseData(new UseBagCell()), bagCell));
-        deffaultItems.Add("2", new Item("2", new ItemUseData(new UseBagCell()), bagCell));
-        deffaultItems.Add("3", new Item("3", new ItemUseData(new UseBagCell()), bagCell));
-        deffaultItems.Add("4", new Item("4", new ItemUseData(new UseBagCell()), bagCell));
-        deffaultItems.Add("5", new Item("5", new ItemUseData(new UseBagCell()), bagCell));
+
+        // инит для слотов сумки
+        for (int i = 1; i < 11; i++)
+        {
+            deffaultItems.Add(i.ToString(), new Item(i.ToString(), new ItemUseData(new UseBagCell()), bagCell));
+        }
     }
 }
