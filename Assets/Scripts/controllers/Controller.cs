@@ -53,7 +53,10 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
     public float actioPlayerRadius;
     public Transform player;
 
+    [HideInInspector]
     public Vector3 mousePos;
+    [HideInInspector]
+    public Vector3 mousePosRight;
     // Events
     //StaticCaseItemEvent staticCaseItemEvent;
     public EventController eventController;
@@ -88,6 +91,16 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
         {
             currentHand = SwapActiveHand();
             currentHand.GetComponentInChildren<Text>().text = "*";
+        }
+
+        if (Input.GetMouseButtonDown(1)) 
+        {
+            mousePosRight = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 mousePos2D = new Vector2(mousePosRight.x, mousePosRight.y);
+            RaycastHit2D[] hits = Physics2D.RaycastAll(mousePos2D, Vector2.zero);
+
+            eventController.OnRightButtonClickEvent.Invoke(hits, mousePos2D);
+
         }
 
         if (Input.GetMouseButtonDown(0))
@@ -374,14 +387,18 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
             DressCell(cells[i], innerItems[i]);
         }
 
-        //if (bag.innerItems.Count < cells.Length) 
-        //{ 
-        
+        //if (innerItems.Count < cells.Length) 
+        //{
+        //    i++;
+        //    SetDefaultItem(cells[i]);
         //}
 
         for (; i < cells.Length; i++)
         {
             SetDefaultItem(cells[i]);
+            //cells[i].gameObject.SetActive(false);
         }
+        //RectTransform rt = bag_panel.GetComponent<RectTransform>();
+        //rt.sizeDelta = new Vector2(rt.sizeDelta.x, 50 * i);
     }
 }

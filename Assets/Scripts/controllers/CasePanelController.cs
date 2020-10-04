@@ -25,7 +25,6 @@ public class CasePanelController : MonoBehaviour
             return;
         }
 
-        
         controller.CloseOpenContainer(staticItemPanel, ref caseIsOpen);
         controller.ContainerContentInit(caseItem.items, staticItemPanel);
     }
