@@ -11,7 +11,16 @@ public class EventController : MonoBehaviour
     void Awake()
     {
         OnStaticCaseItemEvent = new StaticCaseItemEvent();
+        //OnStaticCaseItemEvent.AddListener(casePanelController.ActivateStaticItemPanel);
+    }
+
+    private void OnEnable()
+    {
         OnStaticCaseItemEvent.AddListener(casePanelController.ActivateStaticItemPanel);
     }
 
+    private void OnDisable()
+    {
+        OnStaticCaseItemEvent.RemoveAllListeners();
+    }
 }

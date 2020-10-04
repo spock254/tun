@@ -53,6 +53,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
     public float actioPlayerRadius;
     public Transform player;
 
+    public Vector3 mousePos;
     // Events
     //StaticCaseItemEvent staticCaseItemEvent;
     public EventController eventController;
@@ -91,7 +92,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
 
         if (Input.GetMouseButtonDown(0))
         {
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
             RaycastHit2D[] hits = Physics2D.RaycastAll(mousePos2D, Vector2.zero);
 
@@ -110,8 +111,8 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                     if (hit.collider.gameObject.tag == "case")
                     {
                         CaseItem caseItem = hit.collider.GetComponent<CaseItem>();
-                        eventController.OnStaticCaseItemEvent.Invoke(caseItem);
-                        Debug.Log("case use");
+                        Transform casePosition = hit.collider.transform;
+                        eventController.OnStaticCaseItemEvent.Invoke(caseItem, casePosition);
                     }
 
                     // ели на полу айтем и в руках не чего нет
@@ -336,9 +337,14 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
         return left_hand_btn;
     }
 
-    bool IsInActionRadius(Vector2 mousePos2D, Vector2 objPosition, float radius) 
+    public bool IsInActionRadius(Vector2 mousePos2D, Vector2 objPosition, float radius) 
     {
         return Vector2.Distance(mousePos2D, player.position) < actioPlayerRadius;
+    }
+
+    public bool IsInActionRadius() 
+    {
+        return Vector2.Distance(mousePos, player.position) < actioPlayerRadius;
     }
 
     bool isSameTypes(string t1, string t2) 

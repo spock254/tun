@@ -6,23 +6,33 @@ using UnityEngine.UI;
 public class CasePanelController : MonoBehaviour
 {
     public GameObject staticItemPanel;
+
+    // иниц событием
     CaseItem caseItem;
+    Transform casePosition;
+
     public Controller controller;
     public bool caseIsOpen;
 
-    public void ActivateStaticItemPanel(CaseItem caseItem) 
+    public void ActivateStaticItemPanel(CaseItem caseItem, Transform casePosition) 
     {
         this.caseItem = caseItem;
+        this.casePosition = casePosition;
+
         controller.CloseOpenContainer(staticItemPanel, ref caseIsOpen);
         controller.ContainerContentInit(caseItem.items, staticItemPanel);
     }
 
+    void Update()
+    {
+        if (caseIsOpen && !IsInActionRadius()) 
+        {
+            controller.CloseOpenContainer(staticItemPanel, ref caseIsOpen);
+        }
+    }
+
     public void OnCasePanelClick(string caseCellIndex) 
     {
-        //GameObject bagCellGo = GameObject.FindGameObjectWithTag(caseCellIndex);
-        //Button bagCellBtn = bagCellGo.GetComponent<Button>();
-       // controller.OnBagButtonClick(caseCellIndex);
-
         GameObject caseCellGo = GameObject.FindGameObjectWithTag(caseCellIndex);
         Button caseCellBtn = caseCellGo.GetComponent<Button>();
 
@@ -38,34 +48,31 @@ public class CasePanelController : MonoBehaviour
         }
         else if (!controller.IsEmpty(controller.currentHand) && !controller.IsEmpty(caseCellBtn)) //TODO: проверить если достаточно места в сумке 
         {
-            // избежание добавления сумки в ту же сумку
-            //if (controller.IsEmpty(controller.GetAnotherHand()))
-            //{
-            //    return;
-            //}
-
-            // для свапа айтема между рукой и ячейкой
-
             // если достаточно места в сумке для свапа
-            //if (bag.CountInnerCapacity() - bagItem.GetItemSize() + handItem.GetItemSize() <= bag.capacity)
-            //{
-            innerItems.Add(handItem);
-            innerItems.Remove(caseCellItem);
-            controller.DressCell(controller.currentHand, caseCellItem);
-            controller.DressCell(caseCellBtn, handItem);
-            // }
+            if (caseItem.CountInnerCapacity() - caseCellItem.GetItemSize() + handItem.GetItemSize() 
+                <= caseItem.caseCapacity) 
+            { 
+                innerItems.Add(handItem);
+                innerItems.Remove(caseCellItem);
+                controller.DressCell(controller.currentHand, caseCellItem);
+                controller.DressCell(caseCellBtn, handItem);
+            
+            }
         }
         else if (!controller.IsEmpty(controller.currentHand) && controller.IsEmpty(caseCellBtn))
         {
             // если достаточно места в сумке для добавления
-            //if (bag.CountInnerCapacity() + handItem.GetItemSize() <= bag.capacity)
-            //{
-            innerItems.Add(handItem);
-            controller.DressCell(caseCellBtn, handItem);
-            controller.SetDefaultItem(controller.currentHand);
-            //}
+            if (caseItem.CountInnerCapacity() + handItem.GetItemSize() <= caseItem.caseCapacity)
+            {
+                innerItems.Add(handItem);
+                controller.DressCell(caseCellBtn, handItem);
+                controller.SetDefaultItem(controller.currentHand);
+            }
         }
-        
+    }
 
+    public bool IsInActionRadius() 
+    {
+        return Vector2.Distance(casePosition.position, controller.player.position) < controller.actioPlayerRadius;
     }
 }

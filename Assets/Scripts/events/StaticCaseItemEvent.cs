@@ -1,5 +1,6 @@
-﻿using UnityEngine.Events;
+﻿using UnityEngine;
+using UnityEngine.Events;
 [System.Serializable]
-public class StaticCaseItemEvent : UnityEvent<CaseItem>
+public class StaticCaseItemEvent : UnityEvent<CaseItem, Transform>
 {
 }

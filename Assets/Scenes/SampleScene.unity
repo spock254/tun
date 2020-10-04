@@ -5670,8 +5670,9 @@ MonoBehaviour:
   bag_panel: {fileID: 96867979}
   isBagOpen: 0
   currentHand: {fileID: 0}
-  actioPlayerRadius: 1
+  actioPlayerRadius: 1.5
   player: {fileID: 43560103}
+  mousePos: {x: 0, y: 0, z: 0}
   eventController: {fileID: 1268644810}
 --- !u!114 &1106411687
 MonoBehaviour:

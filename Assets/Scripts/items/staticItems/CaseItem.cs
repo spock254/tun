@@ -44,4 +44,16 @@ public class CaseItem : MonoBehaviour
 
         itemsToUnlockCase.Add(card);
     }
+
+    public int CountInnerCapacity()
+    {
+        int innerCapacity = 0;
+
+        foreach (var item in items)
+        {
+            innerCapacity += item.GetItemSize();
+        }
+
+        return innerCapacity;
+    }
 }
