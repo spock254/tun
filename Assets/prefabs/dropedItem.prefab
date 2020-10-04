@@ -72,7 +72,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: -6437820805256666715, guid: ef7bad5a2b12a8649b3575fe584ad27d,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -96,26 +97,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    id: 0
-    itemSprite: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+    id: -930076730
+    itemSprite: {fileID: -6437820805256666715, guid: ef7bad5a2b12a8649b3575fe584ad27d,
+      type: 3}
     stats:
-      playerStats: 0
+      playerStats: 5
       value: 0
       duration: 0
       time: 0
-    itemName: 4c
-    itemPrice: 0
+    itemName: helmet
+    itemPrice: 200
     itemUseData:
-      itemSize: 0
+      itemSize: 1
       use:
         id: 0
-      itemTypes: 0e000000
+      itemTypes: 000000000c000000
     innerItems: []
-    capacity: 0
+    capacity: 3
   references:
     version: 1
     00000000:
-      type: {class: UseBagCell, ns: , asm: Assembly-CSharp}
+      type: {class: DummyItemUse, ns: , asm: Assembly-CSharp}
 --- !u!61 &6379150749542398364
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -131,9 +133,9 @@ BoxCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
-    border: {x: 0.049999997, y: 0.049999997, z: 0.049999997, w: 0.049999997}
+    border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.16, y: 0.16}
+    oldSize: {x: 0.32, y: 0.32}
     newSize: {x: 0.32, y: 0.32}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

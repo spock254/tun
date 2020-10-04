@@ -100,4 +100,9 @@ public class Item
 
         return innerCapacity;
     }
+
+    public bool IsSameItems(Item item) 
+    {
+        return this.id == item.id;
+    }
 }

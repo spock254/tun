@@ -2,21 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class CaseItem : MonoBehaviour
 {
+    [SerializeReference]
     public List<Item> items;
+    [SerializeReference]
+    public List<Item> itemsToUnlockCase;
+
     public int caseCapacity;
     public bool isLocked = false;
-    public List<Item> itemsToUnlockCase;
 
     [Header("for testing")]
     public Sprite sprite_chest;
     public Sprite sprite_helmet;
     public Sprite sprite_card;
 
-    private void Start()
+    private void Awake()
     {
         items = new List<Item>();
+        itemsToUnlockCase = new List<Item>();
 
         Item helmet = new Item(new ItemFightStats(0, 5), "helmet", 200,
                     new ItemUseData(ItemUseData.ItemSize.Middle, new DummyItemUse(),
@@ -33,7 +38,6 @@ public class CaseItem : MonoBehaviour
         items.Add(helmet);
         items.Add(chest);
 
-        itemsToUnlockCase = new List<Item>();
 
         Item card = new Item(new ItemFightStats(0, 0), "card", 200,
         new ItemUseData(ItemUseData.ItemSize.Small, new DummyItemUse(),

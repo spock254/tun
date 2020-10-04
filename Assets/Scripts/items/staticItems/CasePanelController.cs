@@ -19,13 +19,20 @@ public class CasePanelController : MonoBehaviour
         this.caseItem = caseItem;
         this.casePosition = casePosition;
 
+        if (caseItem.isLocked && !OpenWithKey()) 
+        {
+            Debug.Log("No item to unlock case");
+            return;
+        }
+
+        
         controller.CloseOpenContainer(staticItemPanel, ref caseIsOpen);
         controller.ContainerContentInit(caseItem.items, staticItemPanel);
     }
 
     void Update()
     {
-        if (caseIsOpen && !IsInActionRadius()) 
+        if (caseIsOpen && !IsInActionRadius())
         {
             controller.CloseOpenContainer(staticItemPanel, ref caseIsOpen);
         }
@@ -74,5 +81,20 @@ public class CasePanelController : MonoBehaviour
     public bool IsInActionRadius() 
     {
         return Vector2.Distance(casePosition.position, controller.player.position) < controller.actioPlayerRadius;
+    }
+
+    public bool OpenWithKey() 
+    {
+        Item handItem = controller.currentHand.GetComponent<ItemCell>().item;
+
+        foreach (var item in caseItem.itemsToUnlockCase)
+        {
+            if (handItem.IsSameItems(item)) 
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
