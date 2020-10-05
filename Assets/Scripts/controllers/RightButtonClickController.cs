@@ -11,30 +11,31 @@ public class RightButtonClickController : MonoBehaviour
     public GameObject item;
     public void RightButtonClick(RaycastHit2D[] hits, Vector2 mousePosition) 
     {
-        for (int j = 0; j < spawnPoint.transform.childCount; j++)
-        {
-            GameObject.Destroy(spawnPoint.transform.GetChild(j).gameObject);
-        }
+        DestroyItems();
 
         Debug.Log(mousePosition.x +" "+mousePosition.y);
         rightButtonClick_panel.SetActive(true);
         rightButtonClick_panel.transform.position = SetPanelPosition(mousePosition);
 
-        int i = 0;
+        float step = GetItemHeight();
 
-        foreach (var hit in hits)
+        for (int i = 0; i < hits.Length; i++)
         {
-            float spawnY = i * 15;
-            Debug.Log(hit.collider.name);
-            Vector3 pos = new Vector3(spawnPoint.transform.position.x, spawnY,
-                                        spawnPoint.transform.position.z);
-            GameObject spawnedItem = (GameObject)Instantiate(item, pos, spawnPoint.transform.rotation);
-            
-            spawnedItem.transform.SetParent(spawnPoint.transform, false);
+            if (hits[i].collider.name.Contains("item")) 
+            { 
+                float spawnY = i * step;
+                Vector3 pos = new Vector3(spawnPoint.transform.position.x, spawnY,
+                                            spawnPoint.transform.position.z);
+                GameObject spawnedItem = (GameObject)Instantiate(item, pos, spawnPoint.transform.rotation);
+                
+                SetItemName(spawnedItem, hits[i].collider.name);
 
-            i++;
-            //Debug.Log("hit");
+                spawnedItem.transform.SetParent(spawnPoint.transform, false);
+            }
+            
+
         }
+
     }
 
     Vector3 SetPanelPosition(Vector2 mousePosition) 
@@ -42,11 +43,28 @@ public class RightButtonClickController : MonoBehaviour
         RectTransform rt = rightButtonClick_panel.GetComponent<RectTransform>();
         //Vector2 viewportPoint = Camera.main.WorldToViewportPoint(mousePosition);
 
-        float leftCornerX = -1;//rt.rect.width / 2;
-        float rightCornerY = -2f;//rt.rect.height / 2;
+        float leftCornerX = 0;//rt.rect.width / 2;
+        float rightCornerY = 0;//rt.rect.height / 2;
         //Debug.Log(rt.rect.x + " " + rt.rect.y);
-        Debug.Log(mousePosition);
         return new Vector3(mousePosition.x - leftCornerX, mousePosition.y - rightCornerY, rightButtonClick_panel.transform.position.z);
 
+    }
+
+    void DestroyItems() 
+    {
+        for (int j = 0; j < spawnPoint.transform.childCount; j++)
+        {
+            GameObject.Destroy(spawnPoint.transform.GetChild(j).gameObject);
+        }
+    }
+
+    float GetItemHeight() 
+    {
+        return item.GetComponent<RectTransform>().rect.height;
+    }
+
+    void SetItemName(GameObject spawnedItem, string name) 
+    {
+        spawnedItem.transform.GetChild(0).GetComponent<Text>().text = name;
     }
 }
