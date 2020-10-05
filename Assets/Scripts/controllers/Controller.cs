@@ -133,11 +133,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                     && IsEmpty(currentHand))
                     {
                         GameObject itemGo = hit.collider.gameObject;
-                        Item item = itemGo.GetComponent<ItemCell>().item;
-
-                        DressCell(currentHand, item);
-
-                        Destroy(itemGo);
+                        ItemPickUp(itemGo);
                     }
                 }
             }
@@ -280,6 +276,15 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                 itemInCell.itemUseData.use.Use_When_Ware();
             }
         }
+    }
+
+    public void ItemPickUp(GameObject itemGo) 
+    {
+        Item item = itemGo.GetComponent<ItemCell>().item;
+
+        DressCell(currentHand, item);
+
+        Destroy(itemGo);
     }
 
     //когда не чего не надето

@@ -1378,8 +1378,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 36.00003, y: -7.4349976}
-  m_SizeDelta: {x: 71.89436, y: 14.572769}
+  m_AnchoredPosition: {x: 24.118996, y: -7.4349976}
+  m_SizeDelta: {x: 48.131508, y: 14.572769}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &357664268
 GameObject:
@@ -5674,6 +5674,7 @@ MonoBehaviour:
   rightButtonClick_panel: {fileID: 1697121665}
   spawnPoint: {fileID: 331983893}
   item: {fileID: 7872511562321954817, guid: c76db863d8ceb174d9017d333701d05f, type: 3}
+  controller: {fileID: 1106411686}
 --- !u!1 &1124907799
 GameObject:
   m_ObjectHideFlags: 0

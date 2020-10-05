@@ -72,7 +72,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: -2493106231213988773, guid: ef7bad5a2b12a8649b3575fe584ad27d,
+  m_Sprite: {fileID: 6013599830262996141, guid: ef7bad5a2b12a8649b3575fe584ad27d,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -97,23 +97,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    id: 696029465
-    itemSprite: {fileID: -2493106231213988773, guid: ef7bad5a2b12a8649b3575fe584ad27d,
+    id: -696947694
+    itemSprite: {fileID: 6013599830262996141, guid: ef7bad5a2b12a8649b3575fe584ad27d,
       type: 3}
     stats:
       playerStats: 5
       value: 0
       duration: 0
       time: 0
-    itemName: bag
-    itemPrice: 150
+    itemName: chest
+    itemPrice: 200
     itemUseData:
-      itemSize: 2
+      itemSize: 1
       use:
         id: 0
-      itemTypes: 050000000d000000
+      itemTypes: 020000000c000000
     innerItems: []
-    capacity: 10
+    capacity: 3
   references:
     version: 1
     00000000:
