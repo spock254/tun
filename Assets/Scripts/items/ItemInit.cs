@@ -42,6 +42,8 @@ public class ItemInit : MonoBehaviour
                                                          ItemUseData.ItemType.HandUsable }),
                     sprite_chest, Global.Item.MIDDLE_SIZE, null);
 
+
+
         Item bag = new Item(new ItemFightStats(0, 0), "bag", 150,
             new ItemUseData(ItemUseData.ItemSize.Big, new DummyItemUse(),
                             new ItemUseData.ItemType[] { ItemUseData.ItemType.Bag,

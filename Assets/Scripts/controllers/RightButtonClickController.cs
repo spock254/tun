@@ -11,16 +11,30 @@ public class RightButtonClickController : MonoBehaviour
     public GameObject item;
 
     public Controller controller;
+    public RectTransform UICanval;
     //public ActionPanelController actionPanelController;
     bool panelIsOpen = false;
 
-    //private void LateUpdate()
-    //{
-    //    if (Input.GetMouseButtonDown(0) && panelIsOpen) 
-    //    {
-    //        rightButtonClick_panel.SetActive(false);
-    //    }
-    //}
+    // время для того что бы выполнить все onClick события
+    float closePanelDelay = 0.17f;
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0) && panelIsOpen)
+        {
+            StartCoroutine(LoadSceneAfterDelay(closePanelDelay));
+        }
+
+        if (!panelIsOpen) 
+        {
+            StopAllCoroutines();
+        }
+    }
+
+    public IEnumerator LoadSceneAfterDelay(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        OnClosePanel();
+    }
 
     public void RightButtonClick(RaycastHit2D[] hits, Vector2 mousePosition) 
     {
@@ -28,14 +42,16 @@ public class RightButtonClickController : MonoBehaviour
 
         Debug.Log(mousePosition.x +" "+mousePosition.y);
         rightButtonClick_panel.SetActive(true);
-        rightButtonClick_panel.transform.position = SetPanelPosition(mousePosition);
+        //rightButtonClick_panel.transform.position = SetPanelPosition(mousePosition);
+        //TODO
+        rightButtonClick_panel.GetComponent<RectTransform>().anchoredPosition = SetPanelPosition(mousePosition);
 
         float step = GetItemHeight();
 
         for (int i = 0; i < hits.Length; i++)
         {
-            if (hits[i].collider.name.Contains("item")) 
-            { 
+            if (hits[i].collider.name.Contains("item"))
+            {
                 float spawnY = i * step;
                 Vector3 pos = new Vector3(spawnPoint.transform.position.x, spawnY,
                                             spawnPoint.transform.position.z);
@@ -43,32 +59,39 @@ public class RightButtonClickController : MonoBehaviour
                 ItemInButton itemInButton = spawnedItem.GetComponent<ItemInButton>();
                 Button itemButton = spawnedItem.GetComponent<Button>();
 
-                SetItemName(spawnedItem, hits[i].collider.name);
-                
-                
+                SetItemName(spawnedItem, hits[i].collider.GetComponent<ItemCell>().item.itemName);
+
+
                 itemInButton.item = hits[i].collider.gameObject;
                 itemInButton.controller = controller;
 
-                itemButton.onClick.AddListener(OnClosePanel);
                 itemButton.onClick.AddListener(itemInButton.OnClickPickUp);
+                itemButton.onClick.AddListener(OnClosePanel);
 
                 spawnedItem.transform.SetParent(spawnPoint.transform, false);
             }
         }
-
         panelIsOpen = true;
     }
 
     Vector3 SetPanelPosition(Vector2 mousePosition) 
     {
-        RectTransform rt = rightButtonClick_panel.GetComponent<RectTransform>();
-        //Vector2 viewportPoint = Camera.main.WorldToViewportPoint(mousePosition);
+        RectTransform rt = UICanval;
+        //Vector2 localpoint;
+        //RectTransformUtility.ScreenPointToLocalPointInRectangle(rt, Input.mousePosition, GetComponentInParent<Canvas>().worldCamera, out localpoint);
+
+        //Vector2 normalizedPoint = Rect.PointToNormalized(rt.rect, localpoint);
+        //return normalizedPoint;
+        //Debug.Log(normalizedPoint);
+
+
+        Vector2 viewportPoint = Camera.main.ScreenToViewportPoint(mousePosition);
 
         float leftCornerX = 0;//rt.rect.width / 2;
         float rightCornerY = 0;//rt.rect.height / 2;
-        //Debug.Log(rt.rect.x + " " + rt.rect.y);
-        return new Vector3(mousePosition.x - leftCornerX, mousePosition.y - rightCornerY, rightButtonClick_panel.transform.position.z);
 
+        return new Vector3(viewportPoint.x - leftCornerX, viewportPoint.y - rightCornerY, rightButtonClick_panel.transform.position.z);
+        //return new Vector3()
     }
 
     void DestroyItems() 
@@ -92,5 +115,6 @@ public class RightButtonClickController : MonoBehaviour
     void OnClosePanel() 
     {
         rightButtonClick_panel.SetActive(false);
+        panelIsOpen = false;
     }
 }

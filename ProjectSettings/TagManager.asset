@@ -44,6 +44,7 @@ TagManager:
   - 8c
   - 9c
   - 10c
+  - spawn_button
   layers:
   - Default
   - TransparentFX

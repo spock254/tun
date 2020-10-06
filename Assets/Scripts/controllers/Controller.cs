@@ -154,35 +154,43 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
         {
             return;
         }
-
-        if (IsEmpty(currentHand) && !IsEmpty(bagCellBtn))
-        {
-            bag.innerItems.Remove(bagItem);
-            DressCell(currentHand, bagItem);
-            SetDefaultItem(bagCellBtn);
-        }
-        else if (!IsEmpty(currentHand) && IsEmpty(bagCellBtn)) //TODO: проверить если достаточно места в сумке 
-        {
-
-            // если достаточно места в сумке для добавления
-             if (bag.CountInnerCapacity() + handItem.GetItemSize() <= bag.capacity) 
-             { 
-                 bag.innerItems.Add(handItem);
-                 DressCell(bagCellBtn, handItem);
-                 SetDefaultItem(currentHand);
-            }
-        }
-        else if (!IsEmpty(currentHand) && !IsEmpty(bagCellBtn))
-        {
-            // если достаточно места в сумке для свапа
-            if (bag.CountInnerCapacity() - bagItem.GetItemSize() + handItem.GetItemSize() <= bag.capacity)
+        
+        // если абгрейдабл айтем можно добавлять только абгрейты
+        //в обычную сумку можно добавлять любые предметы
+        if (IsItemTypePresent(bag, ItemUseData.ItemType.Openable) 
+            || ((IsItemTypePresent(bag, ItemUseData.ItemType.Upgradable) 
+            && IsItemTypePresent(handItem, ItemUseData.ItemType.Upgrate)) || IsEmpty(currentHand))) 
+        { 
+            if (IsEmpty(currentHand) && !IsEmpty(bagCellBtn))
             {
-                bag.innerItems.Add(handItem);
                 bag.innerItems.Remove(bagItem);
                 DressCell(currentHand, bagItem);
-                DressCell(bagCellBtn, handItem);
+                SetDefaultItem(bagCellBtn);
+            }
+            else if (!IsEmpty(currentHand) && IsEmpty(bagCellBtn)) //TODO: проверить если достаточно места в сумке 
+            {
+
+                // если достаточно места в сумке для добавления
+                 if (bag.CountInnerCapacity() + handItem.GetItemSize() <= bag.capacity) 
+                 { 
+                     bag.innerItems.Add(handItem);
+                     DressCell(bagCellBtn, handItem);
+                     SetDefaultItem(currentHand);
+                }
+            }
+            else if (!IsEmpty(currentHand) && !IsEmpty(bagCellBtn))
+            {
+                // если достаточно места в сумке для свапа
+                if (bag.CountInnerCapacity() - bagItem.GetItemSize() + handItem.GetItemSize() <= bag.capacity)
+                {
+                    bag.innerItems.Add(handItem);
+                    bag.innerItems.Remove(bagItem);
+                    DressCell(currentHand, bagItem);
+                    DressCell(bagCellBtn, handItem);
+                }
             }
         }
+
         Debug.Log(bag.CountInnerCapacity() +" / " + bag.capacity);
     }
 
@@ -205,7 +213,8 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                 foreach (var item_types in itemInHand.itemUseData.itemTypes)
                 {
                     Debug.Log("close");
-                    if (item_types == ItemUseData.ItemType.Openable && isBagOpen)
+                    if ((item_types == ItemUseData.ItemType.Openable 
+                      || item_types == ItemUseData.ItemType.Upgradable) && isBagOpen)
                     {
                         CloseOpenContainer(bag_panel, ref isBagOpen);
                     }
@@ -240,7 +249,8 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                             itemInCell.itemUseData.use.Use_In_Hands();
                             return;
                         }
-                        else if (item_type == ItemUseData.ItemType.Openable) 
+                        else if (item_type == ItemUseData.ItemType.Openable 
+                              || item_type == ItemUseData.ItemType.Upgradable) 
                         {
                             // TODO:  
                             if (!isBagOpen) 
@@ -405,5 +415,18 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
         }
         //RectTransform rt = bag_panel.GetComponent<RectTransform>();
         //rt.sizeDelta = new Vector2(rt.sizeDelta.x, 50 * i);
+    }
+
+    bool IsItemTypePresent(Item item, ItemUseData.ItemType type_to_find) 
+    {
+        foreach (var item_type in item.itemUseData.itemTypes)
+        {
+            if (item_type == type_to_find)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
