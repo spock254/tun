@@ -8,27 +8,16 @@ using UnityEngine.UI;
 public class Controller : MonoBehaviour //, IPointerClickHandler
 {
     public ItemInit itemDB;
-
     public Button head_btn;
-
     public Button face_btn;
-
     public Button body_btn;
-
     public Button arm_btn;
-
     public Button lags_btn;
-
     public Button bag_btn;
-
     public Button left_hand_btn;
-
     public Button right_hand_btn;
-
     public Button left_pack_btn;
-
     public Button right_pack_btn;
-
     public Button card_btn;
 
     [Header("Bag cells")]
@@ -113,12 +102,18 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
             {
                 if (hit.collider != null && IsInActionRadius(mousePos, player.position, actioPlayerRadius))
                 {
-                    //Debug.Log(hit.collider.tag);
-
                     if (hit.collider.gameObject.tag == "player")
                     {
                         Item item = currentHand.GetComponent<ItemCell>().item;
                         item.itemUseData.use.Use_On_Player();
+                    }
+
+                    if (hit.collider.gameObject.tag == "door") 
+                    {
+                        Item itemInHand = GetItemInHand(currentHand);
+                        // использовать айтем как ключ
+                        eventController.OnDoorEvent.Invoke(itemInHand, mousePos, hit.collider, hit.collider.GetComponent<DoorController>().isLocked);
+                        itemInHand.itemUseData.use.Use_To_Open();
                     }
 
                     if (hit.collider.gameObject.tag == "case")
@@ -428,5 +423,10 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
         }
 
         return false;
+    }
+
+    public Item GetItemInHand(Button hand) 
+    {
+        return hand.GetComponent<ItemCell>().item;
     }
 }

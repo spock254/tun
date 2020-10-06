@@ -27,7 +27,7 @@ public class UseLeftHand : IUse
 
     public void Use_To_Open()
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Use_To_Open");
     }
 
     public void Use_To_Ware()

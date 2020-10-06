@@ -26,8 +26,8 @@ public class GeneralTest : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Z))
         {
             Vector3 spawnPosition = player.position;
-            spawnPosition.x += PlayerMovement.x_player;
-            spawnPosition.y += PlayerMovement.y_player;
+            //spawnPosition.x += PlayerMovement.x_player;
+            //spawnPosition.y += PlayerMovement.y_player;
 
             Vector3Int currentCell = tilemap.WorldToCell(spawnPosition);
             //tilemap.SwapTile(tileA, tileB);
@@ -35,13 +35,13 @@ public class GeneralTest : MonoBehaviour
             tilemap.SetTile(previous, null);
         }
 
-        if (Input.GetKeyDown(KeyCode.E)) 
+        if (Input.GetKeyDown(KeyCode.E))
         {
             Vector3 spawnPosition = player.position;
-            spawnPosition.x += PlayerMovement.x_player;
-            spawnPosition.y += PlayerMovement.y_player;
+            //spawnPosition.x += PlayerMovement.x_player;
+            //spawnPosition.y += PlayerMovement.y_player;
 
-            if (tilemap.GetTile(tilemap.WorldToCell(spawnPosition)) != null) 
+            if (tilemap.GetTile(tilemap.WorldToCell(spawnPosition)) != null)
             {
                 Vector3Int currentCell = tilemap.WorldToCell(spawnPosition);
                 tilemap.SetTile(currentCell, opened_door);

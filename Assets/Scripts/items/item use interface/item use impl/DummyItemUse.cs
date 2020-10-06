@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DummyItemUse : IUse
 {
+
     public void Use_When_Ware()
     {
         Debug.Log("Use_When_Ware");
