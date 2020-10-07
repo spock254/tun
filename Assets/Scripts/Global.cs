@@ -13,4 +13,10 @@ public static class Global
         public static int MIDDLE_SIZE = 3;
         public static int SMALL_SIZE = 1;
     }
+
+    public static class Path
+    {
+        public const string FOOD_SPRITES_ROOT = "Images/Items/Food/";
+        public const string EQUIPMENT_SPRITES_ROOT = "Images/Items/Equipment/";
+    }
 }

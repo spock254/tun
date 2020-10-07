@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FoodUse : IUse
+public class BagUse : IUse
 {
     public void Use_DressedUp(FightStats fightStats, Stats stats, Item item)
     {
@@ -16,8 +16,7 @@ public class FoodUse : IUse
 
     public void Use_On_Player(Stats stats, Item item)
     {
-        StatModify.AddValue(stats.Hunger, item.stats.value);
-        StatModify.ChangeDuration(stats.Hunger, item.stats.duration, item.stats.time);
+        
     }
 
     public void Use_To_Drop(Transform prefab, Transform position, Item item)
@@ -32,12 +31,14 @@ public class FoodUse : IUse
 
     public void Use_To_TakeOff(FightStats fightStats, Stats stats, Item item)
     {
-        
+        fightStats.Attack -= item.ItemFightStats.Attack;
+        fightStats.Defence -= item.ItemFightStats.Defence;
     }
 
     public void Use_To_Ware(FightStats fightStats, Stats stats, Item item)
     {
-        
+        fightStats.Attack += item.ItemFightStats.Attack;
+        fightStats.Defence += item.ItemFightStats.Defence;
     }
 
     public void Use_When_Ware(FightStats fightStats, Stats stats, Item item)

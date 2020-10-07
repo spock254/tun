@@ -4,38 +4,43 @@ using UnityEngine;
 
 public class UseLags : IUse
 {
-    public void Use_In_Hands()
+    public void Use_DressedUp(FightStats fightStats, Stats stats, Item item)
     {
-        Debug.Log("Use_In_Hands");
+       
     }
-    public void Use_When_Ware()
+
+    public void Use_In_Hands(Stats stats, Item item)
     {
-        Debug.Log("Use_When_Ware");
+        
     }
-    public void Use_DressedUp()
-    {
-        Debug.Log("Use_DressedUp with out eq");
-    }
-    public void Use_To_TakeOff()
-    {
-        Debug.Log("Use_To_TakeOff");
-    }
+
     public void Use_On_Player(Stats stats, Item item)
     {
-        throw new System.NotImplementedException();
+        
     }
 
-    public void Use_To_Open()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void Use_To_Ware()
-    {
-        throw new System.NotImplementedException();
-    }
     public void Use_To_Drop(Transform prefab, Transform position, Item item)
     {
-        Debug.Log("Use_To_Drop");
+        
+    }
+
+    public void Use_To_Open(Stats stats, Item item)
+    {
+
+    }
+
+    public void Use_To_TakeOff(FightStats fightStats, Stats stats, Item item)
+    {
+       
+    }
+
+    public void Use_To_Ware(FightStats fightStats, Stats stats, Item item)
+    {
+        
+    }
+
+    public void Use_When_Ware(FightStats fightStats, Stats stats, Item item)
+    {
+        
     }
 }

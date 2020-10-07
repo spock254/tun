@@ -8,10 +8,14 @@ using UnityEngine.UI;
 public class Controller : MonoBehaviour //, IPointerClickHandler
 {
     [Header("Init")]
-    public ItemInit itemDB;
-    public FoodInit foodInit;
-    public InventoryInit inventoryInit;
     public StatInit statInit;
+    public FightStatsInit fightStatsInit;
+
+    public ItemInit itemDB;
+    public InventoryInit inventoryInit;
+    public FoodInit foodInit;
+    public EquipmentInit equipmentInit;
+    public BagInit bagInit;
 
     [Header("Buttons")]
     public Button head_btn;
@@ -61,16 +65,19 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
 
     void Start()
     {
-
         InitCells();
 
         currentHand = left_hand_btn;
-        DressCell(head_btn, itemDB.items[0]);
         //DressCell(right_hand_btn, itemDB.items[1]);
-        DressCell(left_pack_btn, itemDB.items[3]);
-        DressCell(bag_btn, itemDB.items[2]);
+        //DressCell(left_pack_btn, itemDB.items[3]);
+        //DressCell(bag_btn, itemDB.items[2]);
 
+        DressCell(head_btn, equipmentInit.equipmentDB["head"]);
         DressCell(left_hand_btn, foodInit.foodDB["apple"]);
+        DressCell(bag_btn, bagInit.bagDB["bag"]);
+
+        equipmentInit.equipmentDB["head"].itemUseData.use.Use_To_Ware(fightStatsInit.fightStats, statInit.stats, equipmentInit.equipmentDB["head"]);
+        bagInit.bagDB["bag"].itemUseData.use.Use_To_Ware(fightStatsInit.fightStats, statInit.stats, bagInit.bagDB["bag"]);
     }
 
 
@@ -116,7 +123,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                         Item itemInHand = GetItemInHand(currentHand);
                         // использовать айтем как ключ
                         eventController.OnDoorEvent.Invoke(itemInHand, mousePos, hit.collider, hit.collider.GetComponent<DoorController>().isLocked);
-                        itemInHand.itemUseData.use.Use_To_Open();
+                        itemInHand.itemUseData.use.Use_To_Open(statInit.stats, itemInHand);
                     }
 
                     if (hit.collider.gameObject.tag == "case")
@@ -242,7 +249,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                     {
                         if (item_type == ItemUseData.ItemType.HandUsable)
                         {
-                            itemInCell.itemUseData.use.Use_In_Hands();
+                            itemInCell.itemUseData.use.Use_In_Hands(statInit.stats, itemInCell);
                             return;
                         }
                         else if (item_type == ItemUseData.ItemType.Openable 
@@ -251,7 +258,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                             // TODO:  
                             if (!isBagOpen) 
                             { 
-                                itemInCell.itemUseData.use.Use_To_Open();
+                                itemInCell.itemUseData.use.Use_To_Open(statInit.stats, itemInCell);
                             }
 
                             CloseOpenContainer(bag_panel, ref isBagOpen);
@@ -279,7 +286,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
             }
             else 
             {
-                itemInCell.itemUseData.use.Use_When_Ware();
+                itemInCell.itemUseData.use.Use_When_Ware(fightStatsInit.fightStats, statInit.stats, itemInCell);
             }
         }
     }
@@ -348,11 +355,11 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
 
         if (isDressing)
         {
-            item.itemUseData.use.Use_To_Ware();
+            item.itemUseData.use.Use_To_Ware(fightStatsInit.fightStats, statInit.stats, item);
         }
         else 
         {
-            item.itemUseData.use.Use_To_TakeOff();
+            item.itemUseData.use.Use_To_TakeOff(fightStatsInit.fightStats, statInit.stats, item);
         }
     }
     public bool IsEmpty(Button button) 

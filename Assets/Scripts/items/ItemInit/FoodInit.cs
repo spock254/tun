@@ -8,32 +8,14 @@ public class FoodInit : MonoBehaviour
 
     public Dictionary<string, Item> foodDB { get; private set; }
 
-    const string RES_PATH = "Images/Items/Food/";
+    //const string RES_PATH = "Images/Items/Food/";
 
     Sprite[] sprites;
     public void Awake()
     {
-        sprites = Resources.LoadAll<Sprite>(RES_PATH);
+        sprites = Resources.LoadAll<Sprite>(Global.Path.FOOD_SPRITES_ROOT);
 
         foodDB = new Dictionary<string, Item>();
-
-        //apple = new Item
-        //    (
-        //        new ItemStats(PlayerStats.HUNGER, 10, 0, 0),
-        //        SetItemFightStats(),
-        //        "apple",
-        //        25,
-        //        new ItemUseData(ItemUseData.ItemSize.Small, new FoodUse(), 
-        //                        new ItemUseData.ItemType[] 
-        //                        { 
-        //                            ItemUseData.ItemType.Packet_left,
-        //                            ItemUseData.ItemType.Packet_right,
-        //                            ItemUseData.ItemType.HandUsable
-        //                        }),
-        //        GetSprite(RES_PATH, "food_item_2"),
-        //        0,
-        //        null
-        //    );
 
         apple = CreateFood("apple", 23, 5, 5, 5, "food_item_2");
         foodDB.Add(apple.itemName, apple);

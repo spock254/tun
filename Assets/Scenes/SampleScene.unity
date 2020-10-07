@@ -2929,7 +2929,6 @@ GameObject:
   - component: {fileID: 519420033}
   - component: {fileID: 519420030}
   - component: {fileID: 519420035}
-  - component: {fileID: 519420036}
   - component: {fileID: 519420038}
   - component: {fileID: 519420037}
   - component: {fileID: 519420039}
@@ -3129,19 +3128,6 @@ MonoBehaviour:
     type: 3}
   references:
     version: 1
---- !u!114 &519420036
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 519420028}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64ac58e5e5b885c499d31fdf4d88aacb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemInit: {fileID: 519420035}
 --- !u!114 &519420037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3178,7 +3164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 903f597be0fb51a419f4f1df506387a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventory: {fileID: 519420036}
+  inventory: {fileID: 0}
   item: {fileID: 519420035}
   stats: {fileID: 519420033}
   ui: {fileID: 519420034}
@@ -3194,7 +3180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 626fde91b11112b4699283fa4e89dec7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventory: {fileID: 519420036}
+  inventory: {fileID: 0}
   item: {fileID: 519420035}
   tileA: {fileID: 11400000, guid: e19d8c41ca785cc46b727c54b28c6bbc, type: 2}
   tilemap: {fileID: 1903574704}
@@ -6391,10 +6377,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f97a1f4d5023b9445a3eff3c9675c600, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemDB: {fileID: 519420035}
-  foodInit: {fileID: 1592438374}
-  inventoryInit: {fileID: 1592438376}
   statInit: {fileID: 519420033}
+  fightStatsInit: {fileID: 519420037}
+  itemDB: {fileID: 519420035}
+  inventoryInit: {fileID: 1592438376}
+  foodInit: {fileID: 1592438374}
+  equipmentInit: {fileID: 1592438377}
+  bagInit: {fileID: 1592438378}
   head_btn: {fileID: 559380860}
   face_btn: {fileID: 1097110347}
   body_btn: {fileID: 1170870169}
@@ -10037,6 +10026,8 @@ GameObject:
   - component: {fileID: 1592438375}
   - component: {fileID: 1592438374}
   - component: {fileID: 1592438376}
+  - component: {fileID: 1592438377}
+  - component: {fileID: 1592438378}
   m_Layer: 0
   m_Name: ItemManager
   m_TagString: Untagged
@@ -10096,6 +10087,30 @@ MonoBehaviour:
     type: 3}
   card: {fileID: 97466530388774413, guid: c486991fd5cd01f4394dfd40af4ea846, type: 3}
   bagCell: {fileID: 97466530388774413, guid: c486991fd5cd01f4394dfd40af4ea846, type: 3}
+--- !u!114 &1592438377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1592438373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b37ce3f7f849554aaed91638fb81a00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1592438378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1592438373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4787f149411656744b98f704aa703766, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1610559248
 GameObject:
   m_ObjectHideFlags: 0
