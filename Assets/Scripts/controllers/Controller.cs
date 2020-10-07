@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class Controller : MonoBehaviour //, IPointerClickHandler
 {
     public ItemInit itemDB;
+
     public Button head_btn;
     public Button face_btn;
     public Button body_btn;
@@ -33,9 +34,11 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
     public Button bagCell10;
 
     public GameObject bag_panel;
+    
     public bool isBagOpen = false;
 
     bool isLeftHand = true;
+    
     public Button currentHand;
 
     [Header("Player data")]
@@ -46,9 +49,11 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
     public Vector3 mousePos;
     [HideInInspector]
     public Vector3 mousePosRight;
+
     // Events
-    //StaticCaseItemEvent staticCaseItemEvent;
     public EventController eventController;
+
+    public FoodInit foodInit;
 
     void Start()
     {
@@ -56,21 +61,14 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
         InitCells();
 
         currentHand = left_hand_btn;
-        //head_sprite = head_btn.GetComponent<Image>();
-        //head_sprite.sprite = itemDB.items[0].itemSprite;
-        //left_hand_btn.GetComponent<ItemCell>().item = itemDB.items[0];
-        //left_hand_btn.GetComponent<Image>().sprite = itemDB.items[0].itemSprite;
         DressCell(head_btn, itemDB.items[0]);
-        DressCell(right_hand_btn, itemDB.items[1]);
+        //DressCell(right_hand_btn, itemDB.items[1]);
         DressCell(left_pack_btn, itemDB.items[3]);
         DressCell(bag_btn, itemDB.items[2]);
-        //    left_hand_btn.GetComponent<ItemCell>().empty_cell_sprite;
+
+        DressCell(left_hand_btn, foodInit.foodDB["apple"]);
     }
 
-    public List<Item> GetInnerItems()
-    {
-        return GetAnotherHand().GetComponent<ItemCell>().item.innerItems;
-    }
 
     // Update is called once per frame
     void Update()
@@ -188,8 +186,6 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
 
         Debug.Log(bag.CountInnerCapacity() +" / " + bag.capacity);
     }
-
-
 
     public void OnInvButtonClick(string itemType) 
     { 
@@ -323,6 +319,14 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
         bagCell8.GetComponent<ItemCell>().item = itemDB.deffaultItems["8"];
         bagCell9.GetComponent<ItemCell>().item = itemDB.deffaultItems["9"];
         bagCell10.GetComponent<ItemCell>().item = itemDB.deffaultItems["10"];
+    }
+
+    /*                                  */
+    /*              ACTIONS             */
+    /*                                  */
+    public List<Item> GetInnerItems()
+    {
+        return GetAnotherHand().GetComponent<ItemCell>().item.innerItems;
     }
 
     public void DressCell(Button cellToDress, Item item) 
