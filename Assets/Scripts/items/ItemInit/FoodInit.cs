@@ -35,7 +35,7 @@ public class FoodInit : MonoBehaviour
         //        null
         //    );
 
-        apple = CreateFood("apple", 23, 15, 0, 0, "food_item_2");
+        apple = CreateFood("apple", 23, 5, 5, 5, "food_item_2");
         foodDB.Add(apple.itemName, apple);
     }
 

@@ -20,7 +20,7 @@ public class UseLeftPack : IUse
     {
         Debug.Log("Use_To_TakeOff");
     }
-    public void Use_On_Player()
+    public void Use_On_Player(Stats stats, Item item)
     {
         throw new System.NotImplementedException();
     }

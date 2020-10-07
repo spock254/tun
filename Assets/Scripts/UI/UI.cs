@@ -24,7 +24,7 @@ public class UI : MonoBehaviour
     public Texture2D progressBarEmpty;
     public Texture2D progressBarFull;
 
-    public InventoryInit item;
+    //public InventoryInit item;
 
     public bool isInventoryOpen = false;
     public bool isShopOpen = false;
@@ -46,21 +46,21 @@ public class UI : MonoBehaviour
             isShopOpen = !isShopOpen;
         }
 
-        if (isInventoryOpen) 
-        {
-            if (item.inventory.Count > 0)
-            {
-                choosedItem = ItemChose();
-            }
-        }
+        //if (isInventoryOpen) 
+        //{
+        //    if (item.inventory.Count > 0)
+        //    {
+        //        choosedItem = ItemChose();
+        //    }
+        //}
 
-        if (isShopOpen)
-        {
-            if (shop.shopInventory.Count > 0)
-            {
-                choosedShopItem = ItemShopChose();
-            }
-        }
+        //if (isShopOpen)
+        //{
+        //    if (shop.shopInventory.Count > 0)
+        //    {
+        //        choosedShopItem = ItemShopChose();
+        //    }
+        //}
     }
     private void OnGUI()
     {
@@ -83,15 +83,15 @@ public class UI : MonoBehaviour
             choosedItem = NO_ITEM;
         }
 
-        // shop
-        if (isShopOpen) 
-        {
-            DrawShopBar();
-        }
-        else 
-        { 
+        //// shop
+        //if (isShopOpen) 
+        //{
+        //    DrawShopBar();
+        //}
+        //else 
+        //{ 
         
-        }
+        //}
     }
     void DrawStatBar(StatsField statsField, int order)
     {
@@ -105,17 +105,17 @@ public class UI : MonoBehaviour
                                                             + statsField.TempDuration + "/" + statsField.BuffTime);
     }
 
-    void DrawShopBar() 
-    {
-        GUI.Label(new Rect(Screen.width - barlength / 2, 0, barlength, step), "gold " + gold.gold.GoldAmount.ToString());
+    //void DrawShopBar() 
+    //{
+    //    GUI.Label(new Rect(Screen.width - barlength / 2, 0, barlength, step), "gold " + gold.gold.GoldAmount.ToString());
 
-        int idx = 1;
-        foreach (InventoryCell item in shop.shopInventory)
-        {
-            GUI.Label(new Rect(Screen.width - barlength * 2, idx * 20, barlength, step), item.item.itemName + (idx - 1 == chooseShopItemIndex ? "*" : " ") + " " + item.count + " " + item.item.itemPrice);
-            idx++;
-        }
-    }
+    //    int idx = 1;
+    //    foreach (InventoryCell item in shop.shopInventory)
+    //    {
+    //        GUI.Label(new Rect(Screen.width - barlength * 2, idx * 20, barlength, step), item.item.itemName + (idx - 1 == chooseShopItemIndex ? "*" : " ") + " " + item.count + " " + item.item.itemPrice);
+    //        idx++;
+    //    }
+    //}
     void DrawFightStatBar(float fightStats, int order, string statName) 
     {
         GUI.BeginGroup(new Rect(0, step * order, barlength, step));
@@ -141,83 +141,83 @@ public class UI : MonoBehaviour
 
     void DrawItemsBar() 
     {
-        GUI.Label(new Rect(Screen.width - barlength / 2, 0, barlength, step), "gold " + gold.gold.GoldAmount.ToString());
+        //GUI.Label(new Rect(Screen.width - barlength / 2, 0, barlength, step), "gold " + gold.gold.GoldAmount.ToString());
 
-        int idx = 1;
-        foreach (InventoryCell item in item.inventory)
-        {
-            GUI.Label(new Rect(Screen.width - barlength, idx * 20, barlength, step), item.item.itemName + (idx - 1 == chooseItemIndex ? "*" : " ") + " " +  item.count);
-            idx++;
-        }
+        //int idx = 1;
+        //foreach (InventoryCell item in item.inventory)
+        //{
+        //    GUI.Label(new Rect(Screen.width - barlength, idx * 20, barlength, step), item.item.itemName + (idx - 1 == chooseItemIndex ? "*" : " ") + " " +  item.count);
+        //    idx++;
+        //}
     }
 
-    private Item ItemChose() 
-    {
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            if (chooseItemIndex > 0) 
-            {
-                chooseItemIndex--;
-            }
-            else 
-            {
-                chooseItemIndex = item.inventory.Count - 1;
-            }
-        }
+    //private Item ItemChose() 
+    //{
+    //    if (Input.GetKeyDown(KeyCode.UpArrow))
+    //    {
+    //        if (chooseItemIndex > 0) 
+    //        {
+    //            chooseItemIndex--;
+    //        }
+    //        else 
+    //        {
+    //            chooseItemIndex = item.inventory.Count - 1;
+    //        }
+    //    }
 
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            if (chooseItemIndex < item.inventory.Count - 1)
-            {
-                chooseItemIndex++;
-            }
-            else
-            {
-                chooseItemIndex = 0;
-            }
-        }
+    //    if (Input.GetKeyDown(KeyCode.DownArrow))
+    //    {
+    //        if (chooseItemIndex < item.inventory.Count - 1)
+    //        {
+    //            chooseItemIndex++;
+    //        }
+    //        else
+    //        {
+    //            chooseItemIndex = 0;
+    //        }
+    //    }
 
-        //TODO
-        if(chooseItemIndex == item.inventory.Count) 
-        {
-            chooseItemIndex = item.inventory.Count - 1;
-        }
-        return item.inventory[chooseItemIndex].item;
-    }
+    //    //TODO
+    //    if(chooseItemIndex == item.inventory.Count) 
+    //    {
+    //        chooseItemIndex = item.inventory.Count - 1;
+    //    }
+    //    return item.inventory[chooseItemIndex].item;
+    //}
 
-    private Item ItemShopChose()
-    {
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            if (chooseShopItemIndex > 0)
-            {
-                chooseShopItemIndex--;
-            }
-            else
-            {
-                chooseShopItemIndex = shop.shopInventory.Count - 1;
-            }
-        }
+    //private Item ItemShopChose()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.UpArrow))
+    //    {
+    //        if (chooseShopItemIndex > 0)
+    //        {
+    //            chooseShopItemIndex--;
+    //        }
+    //        else
+    //        {
+    //            chooseShopItemIndex = shop.shopInventory.Count - 1;
+    //        }
+    //    }
 
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            if (chooseShopItemIndex < shop.shopInventory.Count - 1)
-            {
-                chooseShopItemIndex++;
-            }
-            else
-            {
-                chooseShopItemIndex = 0;
-            }
-        }
+    //    if (Input.GetKeyDown(KeyCode.DownArrow))
+    //    {
+    //        if (chooseShopItemIndex < shop.shopInventory.Count - 1)
+    //        {
+    //            chooseShopItemIndex++;
+    //        }
+    //        else
+    //        {
+    //            chooseShopItemIndex = 0;
+    //        }
+    //    }
 
-        Debug.Log(chooseShopItemIndex);
+    //    Debug.Log(chooseShopItemIndex);
 
-        //TODO
-        if (chooseShopItemIndex == item.inventory.Count)
-        {
-            chooseShopItemIndex = item.inventory.Count - 1;
-        }
-        return shop.shopInventory[chooseShopItemIndex].item;
-    }
+    //    //TODO
+    //    if (chooseShopItemIndex == item.inventory.Count)
+    //    {
+    //        chooseShopItemIndex = item.inventory.Count - 1;
+    //    }
+    //    return shop.shopInventory[chooseShopItemIndex].item;
+    //}
 }

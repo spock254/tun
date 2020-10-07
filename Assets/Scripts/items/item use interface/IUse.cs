@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IUse
 {
-    void Use_On_Player();
+    void Use_On_Player(Stats stats, Item item);
 
     void Use_When_Ware();
 

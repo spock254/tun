@@ -14,9 +14,10 @@ public class FoodUse : IUse
         throw new System.NotImplementedException();
     }
 
-    public void Use_On_Player()
+    public void Use_On_Player(Stats stats, Item item)
     {
-        throw new System.NotImplementedException();
+        StatModify.AddValue(stats.Hunger, item.stats.value);
+        StatModify.ChangeDuration(stats.Hunger, item.stats.duration, item.stats.time);
     }
 
     public void Use_To_Drop(Transform prefab, Transform position, Item item)

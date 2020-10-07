@@ -7,8 +7,13 @@ using UnityEngine.UI;
 
 public class Controller : MonoBehaviour //, IPointerClickHandler
 {
+    [Header("Init")]
     public ItemInit itemDB;
+    public FoodInit foodInit;
+    public InventoryInit inventoryInit;
+    public StatInit statInit;
 
+    [Header("Buttons")]
     public Button head_btn;
     public Button face_btn;
     public Button body_btn;
@@ -53,7 +58,6 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
     // Events
     public EventController eventController;
 
-    public FoodInit foodInit;
 
     void Start()
     {
@@ -103,7 +107,8 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                     if (hit.collider.gameObject.tag == "player")
                     {
                         Item item = currentHand.GetComponent<ItemCell>().item;
-                        item.itemUseData.use.Use_On_Player();
+                        item.itemUseData.use.Use_On_Player(statInit.stats, item);
+                        SetDefaultItem(currentHand);
                     }
 
                     if (hit.collider.gameObject.tag == "door") 
@@ -291,34 +296,34 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
     //когда не чего не надето
     public void SetDefaultItem(Button cell) 
     {
-        Item deffaultItem = itemDB.deffaultItems[cell.name.ToLower()];
+        Item deffaultItem = inventoryInit.inventoryDefaultDB[cell.name.ToLower()];
         DressCell(cell, deffaultItem);
     }
 
     void InitCells() 
     {
-        head_btn.GetComponent<ItemCell>().item = itemDB.deffaultItems["head"];
-        face_btn.GetComponent<ItemCell>().item = itemDB.deffaultItems["face"];
-        body_btn.GetComponent<ItemCell>().item = itemDB.deffaultItems["body"];
-        lags_btn.GetComponent<ItemCell>().item = itemDB.deffaultItems["lags"];
-        arm_btn.GetComponent<ItemCell>().item = itemDB.deffaultItems["arm"];
-        bag_btn.GetComponent<ItemCell>().item = itemDB.deffaultItems["bag"];
-        left_hand_btn.GetComponent<ItemCell>().item = itemDB.deffaultItems["left_hand"];
-        right_hand_btn.GetComponent<ItemCell>().item = itemDB.deffaultItems["right_hand"];
-        left_pack_btn.GetComponent<ItemCell>().item = itemDB.deffaultItems["packet_left"];
-        right_pack_btn.GetComponent<ItemCell>().item = itemDB.deffaultItems["packet_right"];
-        card_btn.GetComponent<ItemCell>().item = itemDB.deffaultItems["card"];
+        head_btn.GetComponent<ItemCell>().item = inventoryInit.inventoryDefaultDB["head"];
+        face_btn.GetComponent<ItemCell>().item = inventoryInit.inventoryDefaultDB["face"];
+        body_btn.GetComponent<ItemCell>().item = inventoryInit.inventoryDefaultDB["body"];
+        lags_btn.GetComponent<ItemCell>().item = inventoryInit.inventoryDefaultDB["lags"];
+        arm_btn.GetComponent<ItemCell>().item = inventoryInit.inventoryDefaultDB["arm"];
+        bag_btn.GetComponent<ItemCell>().item = inventoryInit.inventoryDefaultDB["bag"];
+        left_hand_btn.GetComponent<ItemCell>().item = inventoryInit.inventoryDefaultDB["left_hand"];
+        right_hand_btn.GetComponent<ItemCell>().item = inventoryInit.inventoryDefaultDB["right_hand"];
+        left_pack_btn.GetComponent<ItemCell>().item = inventoryInit.inventoryDefaultDB["packet_left"];
+        right_pack_btn.GetComponent<ItemCell>().item = inventoryInit.inventoryDefaultDB["packet_right"];
+        card_btn.GetComponent<ItemCell>().item = inventoryInit.inventoryDefaultDB["card"];
 
-        bagCell1.GetComponent<ItemCell>().item = itemDB.deffaultItems["1"];
-        bagCell2.GetComponent<ItemCell>().item = itemDB.deffaultItems["2"];
-        bagCell3.GetComponent<ItemCell>().item = itemDB.deffaultItems["3"];
-        bagCell4.GetComponent<ItemCell>().item = itemDB.deffaultItems["4"];
-        bagCell5.GetComponent<ItemCell>().item = itemDB.deffaultItems["5"];
-        bagCell6.GetComponent<ItemCell>().item = itemDB.deffaultItems["6"];
-        bagCell7.GetComponent<ItemCell>().item = itemDB.deffaultItems["7"];
-        bagCell8.GetComponent<ItemCell>().item = itemDB.deffaultItems["8"];
-        bagCell9.GetComponent<ItemCell>().item = itemDB.deffaultItems["9"];
-        bagCell10.GetComponent<ItemCell>().item = itemDB.deffaultItems["10"];
+        bagCell1.GetComponent<ItemCell>().item = inventoryInit.inventoryDefaultDB["1"];
+        bagCell2.GetComponent<ItemCell>().item = inventoryInit.inventoryDefaultDB["2"];
+        bagCell3.GetComponent<ItemCell>().item = inventoryInit.inventoryDefaultDB["3"];
+        bagCell4.GetComponent<ItemCell>().item = inventoryInit.inventoryDefaultDB["4"];
+        bagCell5.GetComponent<ItemCell>().item = inventoryInit.inventoryDefaultDB["5"];
+        bagCell6.GetComponent<ItemCell>().item = inventoryInit.inventoryDefaultDB["6"];
+        bagCell7.GetComponent<ItemCell>().item = inventoryInit.inventoryDefaultDB["7"];
+        bagCell8.GetComponent<ItemCell>().item = inventoryInit.inventoryDefaultDB["8"];
+        bagCell9.GetComponent<ItemCell>().item = inventoryInit.inventoryDefaultDB["9"];
+        bagCell10.GetComponent<ItemCell>().item = inventoryInit.inventoryDefaultDB["10"];
     }
 
     /*                                  */
@@ -352,7 +357,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
     }
     public bool IsEmpty(Button button) 
     {
-        return button.GetComponent<ItemCell>().item == itemDB.deffaultItems[button.name.ToLower()];
+        return button.GetComponent<ItemCell>().item == inventoryInit.inventoryDefaultDB[button.name.ToLower()];
     }
     public Button GetAnotherHand() 
     {

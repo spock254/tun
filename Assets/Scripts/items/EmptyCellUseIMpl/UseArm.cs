@@ -20,7 +20,7 @@ public class UseArm : IUse
     {
         Debug.Log("Use_When_Ware");
     }
-    public void Use_On_Player()
+    public void Use_On_Player(Stats stats, Item item)
     {
         throw new System.NotImplementedException();
     }
