@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2469437768556809796}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.32, y: -1.16, z: -2.547039}
+  m_LocalPosition: {x: -17.78837, y: -95.15424, z: -193.61156}
   m_LocalScale: {x: 3, y: 3, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -72,7 +72,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 338616210289973951, guid: ef7bad5a2b12a8649b3575fe584ad27d, type: 3}
+  m_Sprite: {fileID: -8692970365127612261, guid: 8397b6dc86a309e4b9c90899d2edb939,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -96,27 +97,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    id: -930076730
-    itemSprite: {fileID: 338616210289973951, guid: ef7bad5a2b12a8649b3575fe584ad27d,
+    id: 1548091829
+    itemSprite: {fileID: -8692970365127612261, guid: 8397b6dc86a309e4b9c90899d2edb939,
       type: 3}
     stats:
-      playerStats: 5
-      value: 0
-      duration: 0
-      time: 0
-    itemName: helmet
-    itemPrice: 200
+      playerStats: 2
+      value: 5
+      duration: 5
+      time: 5
+    itemName: apple
+    itemPrice: 23
     itemUseData:
-      itemSize: 1
+      itemSize: 0
       use:
         id: 0
-      itemTypes: 000000000c000000
+      itemTypes: 07000000080000000c000000
     innerItems: []
-    capacity: 3
+    capacity: 0
   references:
     version: 1
     00000000:
-      type: {class: DummyItemUse, ns: , asm: Assembly-CSharp}
+      type: {class: FoodUse, ns: , asm: Assembly-CSharp}
 --- !u!61 &6379150749542398364
 BoxCollider2D:
   m_ObjectHideFlags: 0

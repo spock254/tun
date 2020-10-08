@@ -31,13 +31,11 @@ public class DoorController : MonoBehaviour
                                                          ItemUseData.ItemType.Packet_left,
                                                          ItemUseData.ItemType.Packet_right}),
         null, 2, null);
-        Debug.Log(isLocked);
         itemsToUnlockDoor.Add(card);
     }
 
     public void OnDoorClick(Item itemInHand, Vector3 mousePosition, Collider2D collider, bool isLocked) 
     {
-        Debug.Log(isLocked);
         if (isLocked)
         {
             foreach (var item in itemsToUnlockDoor)

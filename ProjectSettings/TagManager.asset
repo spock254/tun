@@ -46,6 +46,7 @@ TagManager:
   - 10c
   - spawn_button
   - door
+  - throw
   layers:
   - Default
   - TransparentFX
