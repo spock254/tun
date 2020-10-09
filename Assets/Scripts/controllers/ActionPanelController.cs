@@ -10,7 +10,9 @@ public class ActionPanelController : MonoBehaviour
     //Button currrentHand;
     Controller uiContrall;
 
-    public float maxThrowDistance = 1;
+    public float maxThrowDistance_SmallItem = 3;
+    public float maxThrowDistance_MidleItem = 2;
+    public float maxThrowDistance_BigItem = 1;
 
     bool isThrown = false;
 
@@ -35,7 +37,7 @@ public class ActionPanelController : MonoBehaviour
             Item item = uiContrall.currentHand.GetComponent<ItemCell>().item;
             item.itemUseData.use.Use_To_Drop(prefab, player, item);
 
-            DropItem(prefab, player, item);
+            SpawnItem(prefab, player.position, item);
 
         }
         else 
@@ -56,11 +58,13 @@ public class ActionPanelController : MonoBehaviour
             Item item = uiContrall.currentHand.GetComponent<ItemCell>().item;
             item.itemUseData.use.Use_To_Drop(prefab, player, item);
 
+            float maxThrowDistance = GetThrowDistance(item);
+
             Vector2 offset = uiContrall.mousePosRight - player.position;
             Vector2 throwPosition = new Vector2(player.position.x, player.position.y) + 
                                         Vector2.ClampMagnitude(offset, maxThrowDistance);
 
-            ThrowItem(prefab, new Vector3(throwPosition.x, throwPosition.y, player.position.z), item);
+            SpawnItem(prefab, new Vector3(throwPosition.x, throwPosition.y, player.position.z), item);
             
         }
         else
@@ -69,24 +73,31 @@ public class ActionPanelController : MonoBehaviour
         }
     }
 
-    void ThrowItem(Transform prefab, Vector3 position, Item item) 
+    void SpawnItem(Transform prefab, Vector3 position, Item item) 
     {
         prefab.GetComponent<ItemCell>().item = item;
+        //prefab.GetComponent<ItemCell>().item.itemUseData = item.itemUseData;
         prefab.GetComponent<SpriteRenderer>().sprite = item.itemSprite;
         prefab.name = Global.DROPED_ITEM_PREFIX + item.itemName;
+
 
         Instantiate(prefab, position, Quaternion.identity);
 
         uiContrall.SetDefaultItem(uiContrall.currentHand);
     }
-    void DropItem(Transform prefab, Transform player, Item item) 
+
+
+    float GetThrowDistance(Item item) 
     {
-        prefab.GetComponent<ItemCell>().item = item;
-        prefab.GetComponent<SpriteRenderer>().sprite = item.itemSprite;
-        prefab.name = Global.DROPED_ITEM_PREFIX + item.itemName;
+        if (item.itemUseData.itemSize == ItemUseData.ItemSize.Small)
+        {
+            return maxThrowDistance_SmallItem;
+        }
+        else if (item.itemUseData.itemSize == ItemUseData.ItemSize.Middle) 
+        {
+            return maxThrowDistance_MidleItem;
+        }
 
-        Instantiate(prefab, player.position, Quaternion.identity);
-
-        uiContrall.SetDefaultItem(uiContrall.currentHand);
+        return maxThrowDistance_BigItem;
     }
 }
